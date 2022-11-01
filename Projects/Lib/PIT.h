@@ -1,0 +1,25 @@
+     // Processor:     MC9S12XDP512
+// Bus Speed:     20 MHz (Requires Active PLL)
+// Author:        This B. You
+// Details:       library details here
+// Revision History
+//      Created: 
+//      each revision will have a date + desc. of changes
+/////////////////////////////////////////////////////////////////////////////
+typedef enum ChanelSelection{
+  PITTF_Ch0,
+  PITTF_Ch1
+}ChanelSelection;
+/////////////////////////////////////////////////////////////////////////////
+// Library Prototypes
+/////////////////////////////////////////////////////////////////////////////
+
+// void  PIT_INIT(void);
+int PIT_Init(unsigned long bus,ChanelSelection chan,unsigned long intervals);
+void PIT_Sleep(unsigned long bus, ChanelSelection chan, unsigned long intervals);
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Hidden Helpers (local to implementation only)
+/////////////////////////////////////////////////////////////////////////////

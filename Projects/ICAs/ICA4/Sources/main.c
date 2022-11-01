@@ -1,0 +1,116 @@
+
+/////////////////////////////////////////////////////////////////////////////
+// 9S12X Program: GPIO and AD2 measuerements
+// Processor:     MC9S12XDP512
+// Bus Speed:     20 MHz (Requires Active PLL)
+// Author:        Noel Tesfe
+// Details:       A more detailed explanation of the program is entered here
+// Date:          09-22-2022
+// Revision History :
+//  each revision will have a date + desc. of changes
+
+/////////////////////////////////////////////////////////////////////////////
+#include <hidef.h>      /* common defines and macros */
+#include "derivative.h" /* derivative-specific definitions */
+
+// other system includes or your includes go here
+//#include "pll.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+
+/////////////////////////////////////////////////////////////////////////////
+// Local Prototypes
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Global Variables
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Constants
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Main Entry
+/////////////////////////////////////////////////////////////////////////////
+void main(void)
+{
+  // main entry point - these two lines must appear first
+  _DISABLE_COP();
+  EnableInterrupts;
+
+  /////////////////////////////////////////////////////////////////////////////
+  // one-time initializations
+  /////////////////////////////////////////////////////////////////////////////
+  PT1AD1 &= 0x1F;
+  DDR1AD1 = 0xE0;
+  ATD1DIEN1 |= 0x1F;
+  /////////////////////////////////////////////////////////////////////////////
+  // main program loop
+  /////////////////////////////////////////////////////////////////////////////
+  for (;;)
+  {
+
+    /* PART-1 of the assignment
+    the red light toggles and it cannot be detected by the human eye  */
+    PT1AD1 ^= 0b10011111;
+
+    /* PART-2 of the assignment
+
+    it is necessary to use unsigned long because the data type can hold a very large integral value,
+    and makes it very convenient to create blocking delay
+
+    unsigned int won't work because the maximum value of unsigned int is 65535,
+    hence cannot hold 500000, which will not create the necessary blocking delay
+    */
+    // {
+    //   unsigned long loopCount = 0;
+    //   for (loopCount; loopCount < 500000; ++loopCount)
+    //   {
+    //   }
+    // }
+
+    /*PART-3 of the assignment
+
+    frequency measured 111.02Hz
+
+      */
+
+    {
+      unsigned long loopCount = 0;
+      for (loopCount; loopCount < 11102; ++loopCount)
+      {
+      }
+    }
+
+  //   /*PART -4 of the assignment
+  //   the frequency is 665.59Hz
+  //   */
+
+  //   {
+  //     unsigned int loopCount = 0;
+  //     for (loopCount; loopCount < 1000; ++loopCount)
+  //     {
+  //     }
+  //   }
+
+  //   /*PART -5 of the assignment
+  //  the frequency measures is 1khz and i have used 665 loops to generate it
+  //  */
+
+  //   {
+  //     unsigned int loopCount = 0;
+  //     for (loopCount; loopCount < 665; ++loopCount)
+  //     {
+  //     } 
+  //   }
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Functions
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Interrupt Service Routines
+/////////////////////////////////////////////////////////////////////////////

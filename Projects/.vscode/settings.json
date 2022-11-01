@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "derivative.h": "c",
+        "mc9s12xdp512.h": "c"
+    }
+}

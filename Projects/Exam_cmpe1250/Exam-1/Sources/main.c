@@ -1,0 +1,150 @@
+/////////////////////////////////////////////////////////////////////////////
+// 9S12X Program: YourProg - MiniExplanation
+// Processor:     MC9S12XDP512
+// Bus Speed:     20 MHz (Requires Active PLL)
+// Author:        Simon Walker
+// Details:       A more detailed explanation of the program is entered here
+// Date:          Date Created
+// Revision History :
+//  each revision will have a date + desc. of changes
+
+/////////////////////////////////////////////////////////////////////////////
+#include <hidef.h>      /* common defines and macros */
+#include "derivative.h" /* derivative-specific definitions */
+
+// other system includes or your includes go here
+//#include "pll.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+#include "sw_led.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// Local Prototypes
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Global Variables
+/////////////////////////////////////////////////////////////////////////////
+unsigned int pushCount = 0;
+unsigned int flag1 = 0;
+unsigned int flag2 = 0;
+unsigned int flag3 = 0;
+unsigned int flag4 = 0;
+unsigned int flag5 = 0;
+unsigned long loopCount = 0;
+unsigned long loop = 0;
+/////////////////////////////////////////////////////////////////////////////
+// Constants
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Main Entry
+/////////////////////////////////////////////////////////////////////////////
+void main(void)
+{
+  // main entry point - these two lines must appear first
+  _DISABLE_COP();
+  EnableInterrupts;
+
+  /////////////////////////////////////////////////////////////////////////////
+  // one-time initializations
+  /////////////////////////////////////////////////////////////////////////////
+
+  SWL_Init();
+
+  /////////////////////////////////////////////////////////////////////////////
+  // main program loop
+  /////////////////////////////////////////////////////////////////////////////
+  for (;;)
+  {
+
+    // Part - A
+      SWL_TOG(SWL_YELLOW);
+
+     {
+
+        for (loopCount; loopCount <2800; ++loopCount)
+        {
+
+        }
+
+      }
+
+    // Part-B
+
+    if (pushCount < 2)
+    {
+
+      if (SWL_Any())
+      {
+        if (!flag1)
+        {
+          ++pushCount;
+          flag1 = 1;
+        }
+      }
+    }
+
+    if (pushCount < 2)
+    {
+
+      if (SWL_Any())
+      {
+        if (!flag2)
+        {
+          ++pushCount;
+          flag2 = 1;
+        }
+      }
+    }
+    if (pushCount < 2)
+    {
+
+      if (SWL_Any())
+      {
+        if (!flag3)
+        {
+          ++pushCount;
+          flag3 = 1;
+        }
+      }
+    }
+
+    if (pushCount < 2)
+    {
+
+      if (SWL_Any())
+      {
+        if (!flag4)
+        {
+          ++pushCount;
+          flag4 = 1;
+        }
+      }
+    }
+    if (pushCount < 2)
+    {
+
+      if (SWL_Any())
+      {
+        if (!flag5)
+        {
+          ++pushCount;
+          flag5 = 1;
+        }
+      }
+    }
+    if (pushCount == 2)
+    {
+      SWL_ON(SWL_GREEN);
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Functions
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Interrupt Service Routines
+/////////////////////////////////////////////////////////////////////////////
