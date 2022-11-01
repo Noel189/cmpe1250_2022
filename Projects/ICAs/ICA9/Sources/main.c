@@ -52,7 +52,7 @@ void main(void)
   {
      
         PIT_Sleep(2000000ul,PITTF_Ch1,50);
-         //   SWL_TOG(SWL_RED); 
+           SWL_TOG(SWL_RED); 
 
   }                   
 }
