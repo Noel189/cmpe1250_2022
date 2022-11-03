@@ -18,6 +18,7 @@ void Segs_Init (void)
 
     //configure direction of port pins as outputs
     DDRB=0Xff;
+    Segs_Clear();
 }
 
 void Segs_Normal (unsigned char Addr, unsigned char Value, Segs_DPOption dp)
@@ -80,4 +81,11 @@ void Segs_Custom (unsigned char Addr, unsigned char Value)
    Segs_ML //present data with mode low
 
    Segs_WLATCH //latch data
+}
+
+void Segs_Clear(void){
+   unsigned char i=0;
+   for(;i<8;i++){
+      Segs_Custom(i,0b10000000);
+   }
 }

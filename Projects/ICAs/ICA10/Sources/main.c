@@ -39,12 +39,14 @@ void main(void)
 {
   // main entry point - these two lines must appear first
   _DISABLE_COP();
+  
   EnableInterrupts;
 
   /////////////////////////////////////////////////////////////////////////////
   // one-time initializations
   /////////////////////////////////////////////////////////////////////////////
  Segs_Init();
+  
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
@@ -54,10 +56,11 @@ void main(void)
     // poll for pit flag, on channel 0
     // Segs_Normal(1,'3',Segs_DP_ON);
     // Segs_Normal(3,12,Segs_DP_ON);
-    Segs_Normal(6,0x0F,Segs_DP_OFF);
+    // Segs_Normal(6,0x0F,Segs_DP_OFF);
     Segs_Custom(6,0b00000000);
     Segs_Custom(4,0b10100101);
     Segs_Custom(3,0b11100110);
+  
   }
 }
 
