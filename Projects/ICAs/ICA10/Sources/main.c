@@ -47,9 +47,9 @@ void main(void)
   /////////////////////////////////////////////////////////////////////////////
 
  Segs_Init();
-        Segs_Custom(6,0b00000000);
-    Segs_Custom(4,0b10100101);
-    Segs_Custom(3,0b11100110);
+    // Segs_Custom(6,0b00000000);
+    // Segs_Custom(4,0b10100101);
+    // Segs_Custom(3,0b11100110);
     // Segs_Clear();
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
@@ -64,6 +64,7 @@ void main(void)
     //     Segs_Custom(6,0b00000000);
     // Segs_Custom(4,0b10100101);
     // Segs_Custom(3,0b11100110);
+    Segs_8H(2,0x12);
 
   
   }

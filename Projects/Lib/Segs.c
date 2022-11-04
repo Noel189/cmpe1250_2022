@@ -89,3 +89,13 @@ void Segs_Clear(void){
       Segs_Custom(i,0b10000000);
    }
 }
+
+void Segs_8H (unsigned char Addr, unsigned char Value)
+{
+   //separate in to two nibbles
+   unsigned char vLower = Value&0x0F;
+   unsigned char vUpper = Value>>4;
+   //call segs normal
+   Segs_Normal(Addr,vLower,Segs_DP_OFF);
+   Segs_Normal(++Addr,vUpper,Segs_DP_OFF);
+}

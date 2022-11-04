@@ -24,7 +24,7 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xC0BA
+  _Copy    *toCopyDownBeg 0xC0FB
 } _startupData;
 
 *********************************************************************************************
@@ -33,8 +33,8 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        34     R     0xC031     0xC052   ROM_C000
-.text                            103     R     0xC053     0xC0B9   ROM_C000
-.copy                              2     R     0xC0BA     0xC0BB   ROM_C000
+.text                            168     R     0xC053     0xC0FA   ROM_C000
+.copy                              2     R     0xC0FB     0xC0FC   ROM_C000
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -686,7 +686,7 @@ Section Name                    Size  Type     From       To       Segment
 .vectSeg647_vect                   2     R     0xFFFE     0xFFFF   .vectSeg647
 
 Summary of section sizes per section type:
-READ_ONLY (R):          BE (dec:      190)
+READ_ONLY (R):          FF (dec:      255)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):         300 (dec:      768)
 
@@ -1229,7 +1229,7 @@ MODULE:                 -- mc9s12xdp512.c.o --
      _PITMTLD1                                  347       1       1       0   .abs_section_347
      _XGCHID                                    382       1       1       0   .abs_section_382
      _XGCCR                                     39D       1       1       0   .abs_section_39d
-     _PORTAB                                      0       2       2       9   .abs_section_0
+     _PORTAB                                      0       2       2      17   .abs_section_0
      _DDRAB                                       2       2       2       2   .abs_section_2
      _PORTCD                                      4       2       2       0   .abs_section_4
      _DDRCD                                       6       2       2       0   .abs_section_6
@@ -1352,7 +1352,7 @@ MODULE:                 -- mc9s12xdp512.c.o --
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C053      25      37       1   .text       
+     main                                      C053      14      20       1   .text       
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
@@ -1364,9 +1364,11 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- Segs.c.o --
 - PROCEDURES:
-     Segs_Init                                 C078       D      13       1   .text       
-     Segs_Custom                               C085      21      33       4   .text       
-     Segs_Clear                                C0A6      14      20       1   .text       
+     Segs_Init                                 C067       D      13       1   .text       
+     Segs_Normal                               C074      2C      44       2   .text       
+     Segs_Custom                               C0A0      21      33       1   .text       
+     Segs_Clear                                C0C1      14      20       1   .text       
+     Segs_8H                                   C0D5      26      38       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -1374,16 +1376,16 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12xdp512.c.o                           768      0      0
-  main.c.o                                     0     37      0
+  main.c.o                                     0     20      0
   Start12.c.o                                  0     49      0
-  Segs.c.o                                     0     66      0
+  Segs.c.o                                     0    148      0
   other                                      256     36      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Segs_Init Segs_Custom Segs_Clear 
+  main Segs_Init Segs_Normal Segs_Custom Segs_Clear Segs_8H 
 SECTION: ".init"
   Init _Startup 
 SECTION: ".abs_section_8"
@@ -2685,7 +2687,7 @@ SECTION: ".abs_section_3ae"
 OBJECT LIST SORTED BY ADDRESS
      Name                                      Addr   hSize   dSize     Ref    Section   RLIB
 ---------------------------------------------------------------------------------------------
-     _PORTAB                                      0       2       2       9   .abs_section_0
+     _PORTAB                                      0       2       2      17   .abs_section_0
      _DDRAB                                       2       2       2       2   .abs_section_2
      _PORTCD                                      4       2       2       0   .abs_section_4
      _DDRCD                                       6       2       2       0   .abs_section_6
@@ -3334,22 +3336,21 @@ OBJECT LIST SORTED BY ADDRESS
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
-     main                                      C053      25      37       1   .text       
-     Segs_Init                                 C078       D      13       1   .text       
-     Segs_Custom                               C085      21      33       4   .text       
-     Segs_Clear                                C0A6      14      20       1   .text       
+     main                                      C053      14      20       1   .text       
+     Segs_Init                                 C067       D      13       1   .text       
+     Segs_Normal                               C074      2C      44       2   .text       
+     Segs_Custom                               C0A0      21      33       1   .text       
+     Segs_Clear                                C0C1      14      20       1   .text       
+     Segs_8H                                   C0D5      26      38       1   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
-NOT USED PROCEDURES
-Segs.c.o:
-  Segs_Normal 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC0BA ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC0FB ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -3358,10 +3359,12 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
-main                      USES Segs_Init Segs_Custom 
+main                      USES Segs_Init Segs_8H 
 Segs_Init                 USES _PORTAB _DDRAB Segs_Clear 
+Segs_Normal               USES _PORTAB 
 Segs_Custom               USES _PORTAB 
 Segs_Clear                USES Segs_Custom 
+Segs_8H                   USES Segs_Normal 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -3376,8 +3379,10 @@ DEPENDENCY TREE
  |  |     | 
  |  |     +- Segs_Custom         
  |  |          
- |  +- Segs_Custom          (see above)
- |     
+ |  +- Segs_8H             
+ |     | 
+ |     +- Segs_Normal         
+ |          
  +- _Startup            
     | 
     +- Init                
@@ -3390,6 +3395,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 5
-Total size of all blocks to be downloaded: 190
+Number of blocks to be downloaded: 4
+Total size of all blocks to be downloaded: 255
 
