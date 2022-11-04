@@ -16,10 +16,10 @@ mc9s12xdp512.c.o                        Model: SMALL,         Lang: ANSI-C
 main.c.o                                Model: SMALL,         Lang: ANSI-C
 Start12.c.o                             Model: SMALL,         Lang: ANSI-C
 rtshc12.c.o (ansixs.lib)                Model: SMALL,         Lang: ANSI-C
-Segs.c.o                                Model: SMALL,         Lang: ANSI-C
 PIT.c.o                                 Model: SMALL,         Lang: ANSI-C
 PLL.c.o                                 Model: SMALL,         Lang: ANSI-C
 sw_led.c.o                              Model: SMALL,         Lang: ANSI-C
+Segs.c.o                                Model: SMALL,         Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -1379,29 +1379,29 @@ MODULE:                 -- rtshc12.c.o (ansixs.lib) --
      _LDIVU                                    C3DE       E      14       4   RUNTIME     
      _LMODU                                    C3EC      11      17       1   RUNTIME     
 - VARIABLES:
-MODULE:                 -- Segs.c.o --
-- PROCEDURES:
-     Segs_Init                                 C0D6       D      13       1   .text       
-     Segs_Normal                               C0E3      2C      44       7   .text       
-     Segs_Custom                               C10F      21      33       5   .text       
-     Segs_Clear                                C130      14      20       1   .text       
-     Segs_8H                                   C144      2F      47       1   .text       
-     Segs_16H                                  C173      50      80       2   .text       
-     Display                                   C1C3      39      57       1   .text       
-- VARIABLES:
 MODULE:                 -- PIT.c.o --
 - PROCEDURES:
-     PIT_Init                                  C1FC      B8     184       1   .text       
-     PIT_Sleep                                 C2B4      3C      60       1   .text       
+     PIT_Init                                  C0D6      B8     184       1   .text       
+     PIT_Sleep                                 C18E      3C      60       1   .text       
 - VARIABLES:
 MODULE:                 -- PLL.c.o --
 - PROCEDURES:
-     PLL_To20MHz                               C2F0      15      21       1   .text       
+     PLL_To20MHz                               C1CA      15      21       1   .text       
 - VARIABLES:
 MODULE:                 -- sw_led.c.o --
 - PROCEDURES:
-     SWL_Init                                  C305       D      13       1   .text       
-     SWL_Pushed                                C312       9       9       1   .text       
+     SWL_Init                                  C1DF       D      13       1   .text       
+     SWL_Pushed                                C1EC       9       9       1   .text       
+- VARIABLES:
+MODULE:                 -- Segs.c.o --
+- PROCEDURES:
+     Segs_Init                                 C1F5       D      13       1   .text       
+     Segs_Normal                               C202      2C      44       7   .text       
+     Segs_Custom                               C22E      21      33       5   .text       
+     Segs_Clear                                C24F      14      20       1   .text       
+     Segs_8H                                   C263      2F      47       1   .text       
+     Segs_16H                                  C292      50      80       2   .text       
+     Display                                   C2E2      39      57       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -1412,18 +1412,18 @@ MODULE STATISTIC
   main.c.o                                     4    131      0
   Start12.c.o                                  0     49      0
   rtshc12.c.o (ansixs.lib)                     0    226      0
-  Segs.c.o                                     0    294      0
   PIT.c.o                                      0    244      0
   PLL.c.o                                      0     21      0
   sw_led.c.o                                   0     22      0
+  Segs.c.o                                     0    294      0
   other                                      256     36      8
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Segs_Init Segs_Normal Segs_Custom Segs_Clear Segs_8H Segs_16H Display 
-  PIT_Init PIT_Sleep PLL_To20MHz SWL_Init SWL_Pushed 
+  main PIT_Init PIT_Sleep PLL_To20MHz SWL_Init SWL_Pushed Segs_Init 
+  Segs_Normal Segs_Custom Segs_Clear Segs_8H Segs_16H Display 
 SECTION: ".data"
   downCounter 
 SECTION: ".bss"
@@ -3383,18 +3383,18 @@ OBJECT LIST SORTED BY ADDRESS
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
      main                                      C053      83     131       1   .text       
-     Segs_Init                                 C0D6       D      13       1   .text       
-     Segs_Normal                               C0E3      2C      44       7   .text       
-     Segs_Custom                               C10F      21      33       5   .text       
-     Segs_Clear                                C130      14      20       1   .text       
-     Segs_8H                                   C144      2F      47       1   .text       
-     Segs_16H                                  C173      50      80       2   .text       
-     Display                                   C1C3      39      57       1   .text       
-     PIT_Init                                  C1FC      B8     184       1   .text       
-     PIT_Sleep                                 C2B4      3C      60       1   .text       
-     PLL_To20MHz                               C2F0      15      21       1   .text       
-     SWL_Init                                  C305       D      13       1   .text       
-     SWL_Pushed                                C312       9       9       1   .text       
+     PIT_Init                                  C0D6      B8     184       1   .text       
+     PIT_Sleep                                 C18E      3C      60       1   .text       
+     PLL_To20MHz                               C1CA      15      21       1   .text       
+     SWL_Init                                  C1DF       D      13       1   .text       
+     SWL_Pushed                                C1EC       9       9       1   .text       
+     Segs_Init                                 C1F5       D      13       1   .text       
+     Segs_Normal                               C202      2C      44       7   .text       
+     Segs_Custom                               C22E      21      33       5   .text       
+     Segs_Clear                                C24F      14      20       1   .text       
+     Segs_8H                                   C263      2F      47       1   .text       
+     Segs_16H                                  C292      50      80       2   .text       
+     Display                                   C2E2      39      57       1   .text       
      _LCMP                                     C31B       A      10       2   RUNTIME     
      _lDivMod                                  C325      B9     185       2   RUNTIME     
      _LDIVU                                    C3DE       E      14       4   RUNTIME     
@@ -3438,6 +3438,12 @@ _Startup                  USES __SEG_END_SSTACK Init main
 main                      USES PLL_To20MHz SWL_Init Segs_Init SWL_Pushed 
                                 PIT_Sleep upCounter Segs_16H downCounter Segs_8H 
                                 Segs_Custom Segs_Normal 
+PIT_Init                  USES _LDIVU _LMODU _LCMP _PITMTLD0 _PITLD0 _PITMTLD1 
+                                _PITLD1 _PITMUX _PITCE _PITCFLMT 
+PIT_Sleep                 USES PIT_Init _PITTF 
+PLL_To20MHz               USES _SYNR _REFDV _CLKSEL _PLLCTL _CRGFLG 
+SWL_Init                  USES _PT01AD1 _DDR01AD1 _ATD1DIEN 
+SWL_Pushed                USES _PT01AD1 
 Segs_Init                 USES _PORTAB _DDRAB Segs_Clear 
 Segs_Normal               USES _PORTAB 
 Segs_Custom               USES _PORTAB 
@@ -3445,12 +3451,6 @@ Segs_Clear                USES Segs_Custom
 Segs_8H                   USES Segs_Normal 
 Segs_16H                  USES Display 
 Display                   USES Segs_Normal 
-PIT_Init                  USES _LDIVU _LMODU _LCMP _PITMTLD0 _PITLD0 _PITMTLD1 
-                                _PITLD1 _PITMUX _PITCE _PITCFLMT 
-PIT_Sleep                 USES PIT_Init _PITTF 
-PLL_To20MHz               USES _SYNR _REFDV _CLKSEL _PLLCTL _CRGFLG 
-SWL_Init                  USES _PT01AD1 _DDR01AD1 _ATD1DIEN 
-SWL_Pushed                USES _PT01AD1 
 _LDIVU                    USES _lDivMod 
 _LMODU                    USES _lDivMod 
 

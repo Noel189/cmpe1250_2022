@@ -49,7 +49,7 @@ void main(void)
   // one-time initializations
   /////////////////////////////////////////////////////////////////////////////
 
-  PLL_To20MHz();
+  PLL_To20MHz(); 
   SWL_Init();
   Segs_Init();
 
