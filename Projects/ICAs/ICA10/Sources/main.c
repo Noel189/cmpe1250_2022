@@ -19,7 +19,9 @@
 //#include <stdlib.h>
 //#include <stdio.h>
 #include "Segs.h"
-
+#include "sw_led.h"
+#include "PLL.h"
+#include "PIT.h"
 /////////////////////////////////////////////////////////////////////////////
 // Local Prototypes
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +29,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
-
+unsigned int counterUp = 0, counterDown = 0xffff;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -39,18 +41,20 @@ void main(void)
 {
   // main entry point - these two lines must appear first
   _DISABLE_COP();
-  
+
   EnableInterrupts;
 
   /////////////////////////////////////////////////////////////////////////////
   // one-time initializations
   /////////////////////////////////////////////////////////////////////////////
 
- Segs_Init();
-    // Segs_Custom(6,0b00000000);
-    // Segs_Custom(4,0b10100101);
-    // Segs_Custom(3,0b11100110);
-    // Segs_Clear();
+  PLL_To20MHz();
+  SWL_Init();
+  Segs_Init();
+  // Segs_Custom(6,0b00000000);
+  // Segs_Custom(4,0b10100101);
+  // Segs_Custom(3,0b11100110);
+  // Segs_Clear();
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
@@ -64,9 +68,22 @@ void main(void)
     //     Segs_Custom(6,0b00000000);
     // Segs_Custom(4,0b10100101);
     // Segs_Custom(3,0b11100110);
-    Segs_8H(2,0x12);
-
-  
+    // Segs_8H(2,0x12);
+    if (SWL_Pushed(SWL_CTR))
+    {
+      PIT_Sleep(20000000ul,  PITTF_Ch1,100);
+      Segs_16H(counterUp++, Segs_LineTop);
+      Segs_16H(counterDown--, Segs_LineBottom);
+    }
+    else
+    {
+      Segs_8H(7, 0xE4);
+      Segs_Custom(1, 0b01001010);
+      Segs_Custom(2, 0b11110000);
+      Segs_Custom(5, 0b10001011);
+      Segs_Custom(6, 0b10110001);
+      Segs_Normal(4,'3',Segs_DP_OFF);
+    }
   }
 }
 

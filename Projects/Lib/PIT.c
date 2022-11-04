@@ -44,7 +44,7 @@ int PIT_Init(unsigned long bus, ChanelSelection chan, unsigned long intervalus)
   {
     PITMTLD1 = (byte)(fac8 - 1);
     PITLD1 = (unsigned short)(cycles / fac8 - 1);
-    PITMUX_PMUX1=1
+      PITMUX_PMUX1=1;
   }
   // enable chan 0
   if (chan == 1)
@@ -64,7 +64,7 @@ int PIT_Init(unsigned long bus, ChanelSelection chan, unsigned long intervalus)
   return 0;
 }
 
-void PIT_Sleep(unsigned bus, ChanelSelection chan, unsigned int delay)
+void PIT_Sleep(unsigned long bus, ChanelSelection chan, unsigned int delay)
 {
   // configure channel to chan, 1ms intervals
   PIT_Init(20000000ul, chan, 1000);
