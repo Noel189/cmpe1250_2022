@@ -1,12 +1,12 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 9S12X Program: ICA8- generating different PIT values using a function
+// 9S12X Program: ICA10- Seven Segment Display Basic Functions
 // Processor:     MC9S12XDP512
 // Bus Speed:     20 MHz (Requires Active PLL)
 // Author:        Noel Tesfe
 // Details:       A more detailed explanation of the program is entered here
-// Date:          20/10/2022
+// Date:          03/11/2022
 // Revision History :
 //  each revision will have a date + desc. of changes
 
@@ -29,7 +29,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
-unsigned int counterUp = 0, counterDown = 0xffff;
+unsigned int upCounter = 0;
+unsigned int downCounter = 0xffff;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -51,29 +52,21 @@ void main(void)
   PLL_To20MHz();
   SWL_Init();
   Segs_Init();
-  // Segs_Custom(6,0b00000000);
-  // Segs_Custom(4,0b10100101);
-  // Segs_Custom(3,0b11100110);
-  // Segs_Clear();
+
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
-    //  struct pitvalues = GenPITValues(20000000ul, 100000);
-    // poll for pit flag, on channel 0
-    // Segs_Normal(1,'3',Segs_DP_ON);
-    // Segs_Normal(3,12,Segs_DP_ON);
-    // Segs_Normal(6,0x0F,Segs_DP_OFF);
-    //     Segs_Custom(6,0b00000000);
-    // Segs_Custom(4,0b10100101);
-    // Segs_Custom(3,0b11100110);
-    // Segs_8H(2,0x12);
+     //Tier-1
     if (SWL_Pushed(SWL_CTR))
     {
-      PIT_Sleep(20000000ul,  PITTF_Ch1,100);
-      Segs_16H(counterUp++, Segs_LineTop);
-      Segs_16H(counterDown--, Segs_LineBottom);
+      for (;;)
+      {
+        PIT_Sleep(20000000ul, PITTF_Ch1, 100);
+        Segs_16H(upCounter++, Segs_LineTop);
+        Segs_16H(downCounter--, Segs_LineBottom);
+      }
     }
     else
     {
@@ -82,7 +75,7 @@ void main(void)
       Segs_Custom(2, 0b11110000);
       Segs_Custom(5, 0b10001011);
       Segs_Custom(6, 0b10110001);
-      Segs_Normal(4,'3',Segs_DP_OFF);
+      Segs_Normal(4, '3', Segs_DP_OFF);
     }
   }
 }

@@ -64,10 +64,10 @@ int PIT_Init(unsigned long bus, ChanelSelection chan, unsigned long intervalus)
   return 0;
 }
 
-void PIT_Sleep(unsigned long bus, ChanelSelection chan, unsigned int delay)
+void PIT_Sleep(unsigned long  bus, ChanelSelection chan, unsigned int delay)
 {
   // configure channel to chan, 1ms intervals
-  PIT_Init(20000000ul, chan, 1000);
+  (void)PIT_Init(bus, chan, 1000);
   // enter the blocking loop to kill ms time
   while (delay)
   {

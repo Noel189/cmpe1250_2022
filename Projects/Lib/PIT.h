@@ -16,7 +16,7 @@ typedef enum ChanelSelection{
 
 // void  PIT_INIT(void);
 int PIT_Init(unsigned long bus,ChanelSelection chan,unsigned long intervals);
-void PIT_Sleep(unsigned long bus, ChanelSelection chan, unsigned long intervals);
+void PIT_Sleep(unsigned long bus, ChanelSelection chan, unsigned int intervals);
 
 
 
