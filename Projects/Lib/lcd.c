@@ -89,3 +89,24 @@ void lcd_Data (unsigned char val)
     lcd_EUp;//strobe E   //and ... latch
     lcd_EDown; //idle state
 }
+
+void lcd_Addr (unsigned char addr)
+{
+    lcd_Inst(0x80|addr);
+}
+
+void lcd_AddrXY (unsigned char ix, unsigned char iy)
+{
+    if(iy==0){
+        lcd_Addr(0+ix);
+    }
+    else if(iy==1){
+        lcd_Addr(0x40+ix);
+    }
+    else if(iy==2){
+        lcd_Addr(0x14+ix);
+    }
+    else if(iy==3){
+        lcd_Addr(0x54+ix);
+    }
+}
