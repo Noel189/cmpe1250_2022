@@ -110,3 +110,8 @@ void lcd_AddrXY (unsigned char ix, unsigned char iy)
         lcd_Addr(0x54+ix);
     }
 }
+
+void lcd_Clear (void)
+{
+    lcd_Inst(0x01);
+}
