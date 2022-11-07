@@ -59,25 +59,28 @@ void main(void)
   for (;;)
   {
     // Tier-1
-    if (SWL_Pushed(SWL_CTR))
-    {
-      for (;;)
-      {
-        PIT_Sleep(20000000ul, PITTF_Ch1, 100);
-        Segs_16H(upCounter++, Segs_LineTop);
-        Segs_16H(downCounter--, Segs_LineBottom);
-      }
-    }
-    else
-    {
-      Segs_8H(7, 0xE4);
-      Segs_Custom(1, 0b01001010);
-      Segs_Custom(2, 0b11110000);
-      Segs_Custom(5, 0b10001011);
-      Segs_Custom(6, 0b10110001);
-      Segs_Normal(4, '3', Segs_DP_OFF);
-    }
+  //   if (SWL_Pushed(SWL_CTR))
+  //   {
+  //     for (;;)
+  //     {
+  //       PIT_Sleep(20000000ul, PITTF_Ch1, 100);
+  //       Segs_16H(upCounter++, Segs_LineTop);
+  //       Segs_16H(downCounter--, Segs_LineBottom);
+  //     }
+  //   }
+  //   else
+  //   {
+  //     Segs_8H(7, 0xE4);
+  //     Segs_Custom(1, 0b01001010);
+  //     Segs_Custom(2, 0b11110000);
+  //     Segs_Custom(5, 0b10001011);
+  //     Segs_Custom(6, 0b10110001);
+  //     Segs_Normal(4, '3', Segs_DP_OFF);
+  //   }
+   Segs_16D(18,Segs_LineBottom);
   }
+
+ 
 }
 
 /////////////////////////////////////////////////////////////////////////////

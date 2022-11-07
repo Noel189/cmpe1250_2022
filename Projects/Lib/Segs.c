@@ -158,12 +158,12 @@ void Display(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int v4,
 void Segs_16D (unsigned int Value, Segs_LineOption Line)
 {
   unsigned int Addr;
-   if(Line>=0 && Line<=3){
+   if(Line==0){
     Addr=0;
    }
-   else if(Line>=4&&Line<=7)
+   else if(Line==1)
    {
-   Addr=4;
+   Addr=1;
    }
 
    Segs_Custom(Addr,Value);
