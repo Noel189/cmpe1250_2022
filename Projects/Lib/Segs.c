@@ -124,13 +124,13 @@ void Segs_16H(unsigned int Value, Segs_LineOption Line)
    if (Line == 0)
    {
       addr = 0;
-      Display(v1, v2, v3, v4, addr);
+      
    }
    else if (Line == 1)
    {
       addr = 4;
-      Display(v1, v2, v3, v4, addr);
    }
+   Display(v1, v2, v3, v4, addr);
 }
 
 void Display(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int v4, unsigned int addr)
