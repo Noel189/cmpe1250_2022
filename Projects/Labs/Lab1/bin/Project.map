@@ -29,7 +29,7 @@ _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x2100     14
-  _Copy    *toCopyDownBeg 0xC544
+  _Copy    *toCopyDownBeg 0xC545
 } _startupData;
 
 *********************************************************************************************
@@ -38,8 +38,8 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        34     R     0xC031     0xC052   ROM_C000
-.text                           1039     R     0xC053     0xC461   ROM_C000
-.copy                              9     R     0xC544     0xC54C   ROM_C000
+.text                           1040     R     0xC053     0xC462   ROM_C000
+.copy                              9     R     0xC545     0xC54D   ROM_C000
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .data                              4   R/W     0x2100     0x2103   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -690,11 +690,11 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_3ac                   2   N/I      0x3AC      0x3AD   .absSeg645
 .abs_section_3ae                   2   N/I      0x3AE      0x3AF   .absSeg646
 .bss                              10   R/W     0x2104     0x210D   RAM
-RUNTIME                          226     R     0xC462     0xC543   ROM_C000
+RUNTIME                          226     R     0xC463     0xC544   ROM_C000
 .vectSeg647_vect                   2     R     0xFFFE     0xFFFF   .vectSeg647
 
 Summary of section sizes per section type:
-READ_ONLY (R):         54F (dec:     1359)
+READ_ONLY (R):         550 (dec:     1360)
 READ_WRITE (R/W):      10E (dec:      270)
 NO_INIT (N/I):         300 (dec:      768)
 
@@ -1379,10 +1379,10 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansixs.lib) --
 - PROCEDURES:
-     _LCMP                                     C462       A      10       2   RUNTIME     
-     _lDivMod                                  C46C      B9     185       2   RUNTIME     
-     _LDIVU                                    C525       E      14       4   RUNTIME     
-     _LMODU                                    C533      11      17       1   RUNTIME     
+     _LCMP                                     C463       A      10       2   RUNTIME     
+     _lDivMod                                  C46D      B9     185       2   RUNTIME     
+     _LDIVU                                    C526       E      14       4   RUNTIME     
+     _LMODU                                    C534      11      17       1   RUNTIME     
 - VARIABLES:
 MODULE:                 -- Segs.c.o --
 - PROCEDURES:
@@ -1403,12 +1403,12 @@ MODULE:                 -- sw_led.c.o --
 - PROCEDURES:
      SWL_Init                                  C421       D      13       1   .text       
      SWL_ON                                    C42E       B      11       1   .text       
-     SWL_OFF                                   C439       B      11       2   .text       
-     SWL_Pushed                                C444       9       9       3   .text       
+     SWL_OFF                                   C439       C      12       2   .text       
+     SWL_Pushed                                C445       9       9       3   .text       
 - VARIABLES:
 MODULE:                 -- PLL.c.o --
 - PROCEDURES:
-     PLL_To20MHz                               C44D      15      21       1   .text       
+     PLL_To20MHz                               C44E      15      21       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -1421,7 +1421,7 @@ MODULE STATISTIC
   rtshc12.c.o (ansixs.lib)                     0    226      0
   Segs.c.o                                     0    457      0
   PIT.c.o                                      0    237      0
-  sw_led.c.o                                   0     44      0
+  sw_led.c.o                                   0     45      0
   PLL.c.o                                      0     21      0
   other                                      256     36      9
 
@@ -3406,13 +3406,13 @@ OBJECT LIST SORTED BY ADDRESS
      PIT_Sleep                                 C3E5      3C      60       1   .text       
      SWL_Init                                  C421       D      13       1   .text       
      SWL_ON                                    C42E       B      11       1   .text       
-     SWL_OFF                                   C439       B      11       2   .text       
-     SWL_Pushed                                C444       9       9       3   .text       
-     PLL_To20MHz                               C44D      15      21       1   .text       
-     _LCMP                                     C462       A      10       2   RUNTIME     
-     _lDivMod                                  C46C      B9     185       2   RUNTIME     
-     _LDIVU                                    C525       E      14       4   RUNTIME     
-     _LMODU                                    C533      11      17       1   RUNTIME     
+     SWL_OFF                                   C439       C      12       2   .text       
+     SWL_Pushed                                C445       9       9       3   .text       
+     PLL_To20MHz                               C44E      15      21       1   .text       
+     _LCMP                                     C463       A      10       2   RUNTIME     
+     _lDivMod                                  C46D      B9     185       2   RUNTIME     
+     _LDIVU                                    C526       E      14       4   RUNTIME     
+     _LMODU                                    C534      11      17       1   RUNTIME     
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -3438,19 +3438,19 @@ rtshc12.c.o (ansixs.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC544 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC545 ---- SIZE       4 ---
 Filling bytes inserted
  00032101
-------- ROM-ADDRESS: 0xC548 ---- RAM-ADDRESS: 0x2101 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC549 ---- RAM-ADDRESS: 0x2101 ---- SIZE       1 ---
 Name of initialized Object : addr:1
  04
-------- ROM-ADDRESS: 0xC549 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC54A ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xC54A ---- RAM-ADDRESS: 0x2103 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC54B ---- RAM-ADDRESS: 0x2103 ---- SIZE       1 ---
 Name of initialized Object : flag1:1
  01
-------- ROM-ADDRESS: 0xC54B ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC54C ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -3544,6 +3544,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 1359
+Number of blocks to be downloaded: 5
+Total size of all blocks to be downloaded: 1360
 
