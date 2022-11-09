@@ -50,6 +50,8 @@ void main(void)
   SWL_Init();
   lcd_Init();
 
+
+  lcd_Clear();
   lcd_AddrXY(8, 1);
   lcd_Data('A');
   lcd_Data('M');
@@ -60,7 +62,6 @@ void main(void)
   lcd_Data('G');
   lcd_Data('!');
 
-  lcd_Clear();
 
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
