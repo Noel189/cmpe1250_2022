@@ -153,3 +153,18 @@ void Display(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int v4,
    addr += 1;
    Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
 }
+
+// show a decimal value on the first or second line of the 7-segs
+void Segs_16D (unsigned int Value, Segs_LineOption Line)
+{
+  unsigned int Addr;
+   if(Line==0){
+    Addr=0;
+   }
+   else if(Line==1)
+   {
+   Addr=1;
+   }
+
+   Segs_Custom(Addr,Value);
+}
