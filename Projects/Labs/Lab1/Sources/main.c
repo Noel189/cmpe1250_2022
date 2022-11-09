@@ -33,7 +33,10 @@ unsigned int upCounter = 0;
 unsigned int count = 0;
 unsigned int downCounter = 9999;
 unsigned int addr = 4;
-unsigned int flag=0;
+unsigned int flag1 = 1;
+unsigned int flag2 = 0;
+unsigned int flag3 = 0;
+unsigned int flag4 = 0;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -55,79 +58,78 @@ void main(void)
   PLL_To20MHz();
   SWL_Init();
   Segs_Init();
+  Segs_Clear();
 
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
-    // Tier-1
-    // if (SWL_Pushed(SWL_CTR))
-    // {
 
-      PIT_Sleep(20000000ul, PITTF_Ch1, 100);
-      count++;
+    PIT_Sleep(20000000ul, PITTF_Ch1, 100);
+    count++;
+    if (flag1&&count==10)
+    {
+      Segs_16D(upCounter++, Segs_LineTop);
+      count=0;
+    }
 
-      if (count==10)
-      {
-        Segs_16D(upCounter++, Segs_LineTop);
-        count = 0;
-      }
-  // }
-      // if (SWL_Pushed(SWL_DOWN))
-      // {
-      //  // for(;;){
-      // PIT_Sleep(20000000ul, PITTF_Ch0, 100);
-      //   Segs_16D(upCounter++, Segs_LineTop);
-      //   SWL_ON(SWL_GREEN);
-      //   SWL_OFF(SWL_YELLOW);
-      // //  }
-  
-   
-
-      // }
-    //   if (SWL_Pushed(SWL_UP))
-    //   {
-    //  // for(;;){
-    //   PIT_Sleep(20000000ul, PITTF_Ch0, 100);
-    //    Segs_16H(upCounter++, Segs_LineTop);
-    //     SWL_ON(SWL_YELLOW);
-    //     SWL_OFF(SWL_GREEN);
-    // //  }
+    if (SWL_Pushed(SWL_UP))
+    {
+      flag2 = 1;
+      flag3 = 0;
+      flag1 = 0;
+      Segs_Clear();
      
-        
- 
-    //   }
-      // if (SWL_Pushed(SWL_CTR))
-      // {
-      //      count=0;
-      //   downCounter = upCounter;
-      //   for (;;)
-      //   {
+    }
+    if (SWL_Pushed(SWL_DOWN))
+    {
+      flag2 = 0;
+      flag3 = 1;
+      flag1 = 0;
+      Segs_Clear();
+     
+    }
+    if (SWL_Pushed(SWL_CTR))
+    {
+      flag2 = 0;
+      flag3 = 0;
+      flag4 = 1;
+      flag1 = 0;
+      Segs_Clear();
+    }
 
-      //     PIT_Sleep(20000000ul, PITTF_Ch0, 100);
-      //     count++;
+    if (flag2&&count==10)
+    {
+       SWL_OFF(SWL_GREEN);
+      Segs_16H(upCounter++, Segs_LineTop);
+      SWL_ON(SWL_YELLOW);
+      count=0;
+    }
 
-      //     if (count == 10)
-      //     {
-      //       Segs_16D(downCounter, Segs_LineTop);
-      //       downCounter--;
-      //       count=0;
-      //     }
-      //   }
-    
+    if (flag3&&count==10)
+    {
+       SWL_OFF(SWL_YELLOW);
+      Segs_16D(upCounter++, Segs_LineTop);
+       SWL_ON(SWL_GREEN);
+      count=0;
+    }
+
+    if (flag4&&count==10)
+    {
+      Segs_16D(upCounter--, Segs_LineTop);
+      count=0;
+    }
 
     // Segs_16H(downCounter--, Segs_LineBottom);
 
     // bottom display, turn on each successive decimal points each 200ms
-    //   if(count%2==0){
-    //       if(addr<=7)
-    //   Segs_Custom(addr++, 0b00000000);
-    //   }
+      if(count%2==0){
+          if(addr<=7)
+         Segs_Custom(addr++, 0b00000000);
+      }
   }
-  // }
 }
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Functions
