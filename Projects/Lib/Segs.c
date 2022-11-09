@@ -64,15 +64,6 @@ void Segs_Custom(unsigned char Addr, unsigned char Value)
    // Bank A,Normal op, Decode,Hex,No Data Coming
    Addr |= 0b01111000;
 
-   //    //suppressing decimal point
-   //    if(dp)
-   //    {
-   //     Value &=(~0x80);
-   //    }
-   //    else{
-   //      Value |=0x80;
-   //    }
-
    // present control byte
    PORTB = Addr;
    Segs_MH // present comman with mode high
@@ -158,7 +149,7 @@ void Display(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int v4,
 void Segs_16D(unsigned int value, Segs_LineOption Line)
 {
    unsigned int addr;
-   unsigned int v1=(value) % 10;
+   unsigned int v1 = (value) % 10;
    unsigned int v2 = (value / 10) % 10;
    unsigned int v3 = (value / 100) % 10;
    unsigned int v4 = (value / 1000) % 10;
@@ -171,7 +162,6 @@ void Segs_16D(unsigned int value, Segs_LineOption Line)
       addr = 4;
    }
 
-
    // call segs normal
    Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
    addr += 1;
@@ -180,36 +170,4 @@ void Segs_16D(unsigned int value, Segs_LineOption Line)
    Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
    addr += 1;
    Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-
-//  if (value < 10)
-//    {
-//          // call segs normal
-//    Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
-//    }
-//    else if (value >= 10 && value <= 99)
-//    {
-//       Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
-//       addr += 1;
-//       Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-//    }
-//    else if (value >= 100 && value <= 999)
-//    {
-//       Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
-//       addr += 1;
-//       Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
-//       addr += 1;
-//       Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-//    }
-//    else if (value >= 1000 && value <= 9999)
-//    {
-//       // call segs normal
-//       Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
-//       addr += 1;
-//       Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
-//       addr += 1;
-//       Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
-//       addr += 1;
-//       Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-//    }
-
 }

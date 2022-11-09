@@ -48,16 +48,6 @@ int PIT_Init(unsigned long bus, ChanelSelection chan, unsigned long intervalus)
       PITMUX_PMUX1=1;
        PITCE_PCE1 = 1;
   }
-  // enable chan 1
-  // if (chan == 1)
-  // {
-  //   PITCE_PCE1 = 1;
-  // }
-  // else
-  // {
- 
-  // }
-
   // finally, enable periodic interrupt, normal in wait, PIT stalled in freeze
   // PIT still runs in wait mode (relevant next course)
   // PIT stalls when debugging so PIT events don’t pile up while stepping
