@@ -79,7 +79,7 @@ void main(void)
       flag2 = 1;
       flag3 = 0;
       flag1 = 0;
-      Segs_Clear();
+     Segs_Clear();
      
     }
     if (SWL_Pushed(SWL_DOWN))
@@ -87,7 +87,7 @@ void main(void)
       flag2 = 0;
       flag3 = 1;
       flag1 = 0;
-      Segs_Clear();
+     Segs_Clear();
      
     }
     if (SWL_Pushed(SWL_CTR))
@@ -96,7 +96,7 @@ void main(void)
       flag3 = 0;
       flag4 = 1;
       flag1 = 0;
-      Segs_Clear();
+    Segs_Clear();
     }
 
     if (flag2&&count==10)
@@ -112,7 +112,7 @@ void main(void)
        SWL_OFF(SWL_YELLOW);
       Segs_16D(upCounter++, Segs_LineTop);
        SWL_ON(SWL_GREEN);
-      count=0;
+      count=0; 
     }
 
     if (flag4&&count==10)

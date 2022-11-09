@@ -172,35 +172,44 @@ void Segs_16D(unsigned int value, Segs_LineOption Line)
    }
 
 
- if (value < 10)
-   {
-         // call segs normal
+   // call segs normal
    Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
-   }
-   else if (value >= 10 && value <= 99)
-   {
-      Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
-      addr += 1;
-      Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-   }
-   else if (value >= 100 && value <= 999)
-   {
-      Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
-      addr += 1;
-      Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
-      addr += 1;
-      Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-   }
-   else if (value >= 1000 && value <= 9999)
-   {
-      // call segs normal
-      Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
-      addr += 1;
-      Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
-      addr += 1;
-      Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
-      addr += 1;
-      Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
-   }
+   addr += 1;
+   Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
+   addr += 1;
+   Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+   addr += 1;
+   Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+
+//  if (value < 10)
+//    {
+//          // call segs normal
+//    Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
+//    }
+//    else if (value >= 10 && value <= 99)
+//    {
+//       Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+//       addr += 1;
+//       Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+//    }
+//    else if (value >= 100 && value <= 999)
+//    {
+//       Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
+//       addr += 1;
+//       Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+//       addr += 1;
+//       Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+//    }
+//    else if (value >= 1000 && value <= 9999)
+//    {
+//       // call segs normal
+//       Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
+//       addr += 1;
+//       Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
+//       addr += 1;
+//       Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+//       addr += 1;
+//       Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+//    }
 
 }
