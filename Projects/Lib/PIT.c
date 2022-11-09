@@ -39,22 +39,24 @@ int PIT_Init(unsigned long bus, ChanelSelection chan, unsigned long intervalus)
   {
     PITMTLD0 = (byte)(fac8 - 1);
     PITLD0 = (unsigned short)(cycles / fac8 - 1);
+       PITCE_PCE0 = 1;
   }
   else if (chan == 1)
   {
     PITMTLD1 = (byte)(fac8 - 1);
     PITLD1 = (unsigned short)(cycles / fac8 - 1);
       PITMUX_PMUX1=1;
+       PITCE_PCE1 = 1;
   }
-  // enable chan 0
-  if (chan == 1)
-  {
-    PITCE_PCE1 = 1;
-  }
-  else
-  {
-    PITCE_PCE0 = 1;
-  }
+  // enable chan 1
+  // if (chan == 1)
+  // {
+  //   PITCE_PCE1 = 1;
+  // }
+  // else
+  // {
+ 
+  // }
 
   // finally, enable periodic interrupt, normal in wait, PIT stalled in freeze
   // PIT still runs in wait mode (relevant next course)

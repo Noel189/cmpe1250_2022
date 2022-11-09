@@ -30,7 +30,13 @@
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
 unsigned int upCounter = 0;
-unsigned int downCounter = 0xFFFF;
+unsigned int count = 0;
+unsigned int downCounter = 9999;
+unsigned int addr = 4;
+unsigned int flag1 = 1;
+unsigned int flag2 = 0;
+unsigned int flag3 = 0;
+unsigned int flag4 = 0;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -49,35 +55,79 @@ void main(void)
   // one-time initializations
   /////////////////////////////////////////////////////////////////////////////
 
-  PLL_To20MHz(); 
+  PLL_To20MHz();
   SWL_Init();
   Segs_Init();
+  Segs_Clear();
 
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
-    // Tier-1
+
+    PIT_Sleep(20000000ul, PITTF_Ch1, 100);
+    count++;
+    if (flag1&&count==10)
+    {
+      Segs_16D(upCounter++, Segs_LineTop);
+      count=0;
+    }
+
+    if (SWL_Pushed(SWL_UP))
+    {
+      flag2 = 1;
+      flag3 = 0;
+      flag1 = 0;
+      Segs_Clear();
+     
+    }
+    if (SWL_Pushed(SWL_DOWN))
+    {
+      flag2 = 0;
+      flag3 = 1;
+      flag1 = 0;
+      Segs_Clear();
+     
+    }
     if (SWL_Pushed(SWL_CTR))
     {
-      for (;;)
-      {
-        PIT_Sleep(20000000ul, PITTF_Ch1, 100);
-        Segs_16H(upCounter++, Segs_LineTop);
-        Segs_16H(downCounter--, Segs_LineBottom);
-      }
+      flag2 = 0;
+      flag3 = 0;
+      flag4 = 1;
+      flag1 = 0;
+      Segs_Clear();
     }
-    else
+
+    if (flag2&&count==10)
     {
-      // Segs_8H(2, 7);
-      // Segs_Custom(1, 0b10001001);
-      // Segs_Custom(2, 0b11110000);
-      // Segs_Custom(5, 0b10000011);
-      // Segs_Custom(6, 0b10110001);
-      // Segs_Normal(4, '3', Segs_DP_OFF);
-      Segs_16D(524,Segs_LineBottom);
+       SWL_OFF(SWL_GREEN);
+      Segs_16H(upCounter++, Segs_LineTop);
+      SWL_ON(SWL_YELLOW);
+      count=0;
     }
+
+    if (flag3&&count==10)
+    {
+       SWL_OFF(SWL_YELLOW);
+      Segs_16D(upCounter++, Segs_LineTop);
+       SWL_ON(SWL_GREEN);
+      count=0;
+    }
+
+    if (flag4&&count==10)
+    {
+      Segs_16D(upCounter--, Segs_LineTop);
+      count=0;
+    }
+
+    // Segs_16H(downCounter--, Segs_LineBottom);
+
+    // bottom display, turn on each successive decimal points each 200ms
+      if(count%2==0){
+          if(addr<=7)
+         Segs_Custom(addr++, 0b00000000);
+      }
   }
 }
 

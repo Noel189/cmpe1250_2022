@@ -39,7 +39,7 @@ void SWL_ON(SWL_LEDColour led)
 //switches off the led
 void SWL_OFF(SWL_LEDColour led)
 {
-    PT1AD1 &= led;
+    PT1AD1 &= ~led;
 }
 
 //toggles the led
