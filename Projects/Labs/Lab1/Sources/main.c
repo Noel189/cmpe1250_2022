@@ -121,8 +121,6 @@ void main(void)
       count=0;
     }
 
-    // Segs_16H(downCounter--, Segs_LineBottom);
-
     // bottom display, turn on each successive decimal points each 200ms
       if(count%2==0){
           if(addr<=7)
