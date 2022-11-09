@@ -71,7 +71,7 @@ void main(void)
     else
     {
       // Segs_8H(2, 7);
-      Segs_Custom(1, 0b10000101);
+      Segs_Custom(1, 0b10001001);
       // Segs_Custom(2, 0b11110000);
       // Segs_Custom(5, 0b10000011);
       // Segs_Custom(6, 0b10110001);
