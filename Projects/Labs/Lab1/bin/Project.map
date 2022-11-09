@@ -28,8 +28,8 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     14
-  _Copy    *toCopyDownBeg 0xC4F0
+  _Range   pZeroOut       0x2100     13
+  _Copy    *toCopyDownBeg 0xC519
 } _startupData;
 
 *********************************************************************************************
@@ -38,10 +38,10 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        34     R     0xC031     0xC052   ROM_C000
-.text                            955     R     0xC053     0xC40D   ROM_C000
-.copy                              9     R     0xC4F0     0xC4F8   ROM_C000
+.text                            996     R     0xC053     0xC436   ROM_C000
+.copy                              9     R     0xC519     0xC521   ROM_C000
 .stack                           256   R/W     0x2000     0x20FF   RAM
-.data                              4   R/W     0x2100     0x2103   RAM
+.data                              3   R/W     0x2100     0x2102   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -689,13 +689,13 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_3aa                   2   N/I      0x3AA      0x3AB   .absSeg644
 .abs_section_3ac                   2   N/I      0x3AC      0x3AD   .absSeg645
 .abs_section_3ae                   2   N/I      0x3AE      0x3AF   .absSeg646
-.bss                              10   R/W     0x2104     0x210D   RAM
-RUNTIME                          226     R     0xC40E     0xC4EF   ROM_C000
+.bss                              10   R/W     0x2103     0x210C   RAM
+RUNTIME                          226     R     0xC437     0xC518   ROM_C000
 .vectSeg647_vect                   2     R     0xFFFE     0xFFFF   .vectSeg647
 
 Summary of section sizes per section type:
-READ_ONLY (R):         4FB (dec:     1275)
-READ_WRITE (R/W):      10E (dec:      270)
+READ_ONLY (R):         524 (dec:     1316)
+READ_WRITE (R/W):      10D (dec:      269)
 NO_INIT (N/I):         300 (dec:      768)
 
 *********************************************************************************************
@@ -1360,15 +1360,15 @@ MODULE:                 -- mc9s12xdp512.c.o --
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C053     118     280       8   .text       
+     main                                      C053     144     324       7   .text       
 - VARIABLES:
-     addr                                      2100       2       2       2   .data       
-     flag1                                     2102       2       2       2   .data       
-     upCounter                                 2104       2       2       6   .bss        
-     count                                     2106       2       2       6   .bss        
-     flag2                                     2108       2       2       4   .bss        
-     flag3                                     210A       2       2       4   .bss        
-     flag4                                     210C       2       2       2   .bss        
+     addr                                      2100       1       1       2   .data       
+     flag1                                     2101       2       2       4   .data       
+     upCounter                                 2103       2       2      13   .bss        
+     count                                     2105       2       2       6   .bss        
+     flag2                                     2107       2       2       4   .bss        
+     flag3                                     2109       2       2       4   .bss        
+     flag4                                     210B       2       2       2   .bss        
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -1379,36 +1379,36 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansixs.lib) --
 - PROCEDURES:
-     _LCMP                                     C40E       A      10       2   RUNTIME     
-     _lDivMod                                  C418      B9     185       2   RUNTIME     
-     _LDIVU                                    C4D1       E      14       4   RUNTIME     
-     _LMODU                                    C4DF      11      17       1   RUNTIME     
+     _LCMP                                     C437       A      10       2   RUNTIME     
+     _lDivMod                                  C441      B9     185       2   RUNTIME     
+     _LDIVU                                    C4FA       E      14       4   RUNTIME     
+     _LMODU                                    C508      11      17       1   RUNTIME     
 - VARIABLES:
 MODULE:                 -- Segs.c.o --
 - PROCEDURES:
-     Segs_Init                                 C16B       D      13       1   .text       
-     Segs_Normal                               C178      2C      44       8   .text       
-     Segs_Custom                               C1A4      21      33       2   .text       
-     Segs_Clear                                C1C5      14      20       3   .text       
-     Segs_16H                                  C1D9      50      80       1   .text       
-     Display                                   C229      39      57       1   .text       
-     Segs_16D                                  C262      7D     125       2   .text       
+     Segs_Init                                 C197       D      13       1   .text       
+     Segs_Normal                               C1A4      2C      44       8   .text       
+     Segs_Custom                               C1D0      21      33       2   .text       
+     Segs_Clear                                C1F1      14      20       2   .text       
+     Segs_16H                                  C205      4D      77       1   .text       
+     Display                                   C252      39      57       1   .text       
+     Segs_16D                                  C28B      7D     125       2   .text       
 - VARIABLES:
 MODULE:                 -- PIT.c.o --
 - PROCEDURES:
-     PIT_Init                                  C2DF      B1     177       1   .text       
-     PIT_Sleep                                 C390      3C      60       1   .text       
+     PIT_Init                                  C308      B1     177       1   .text       
+     PIT_Sleep                                 C3B9      3C      60       1   .text       
 - VARIABLES:
 MODULE:                 -- sw_led.c.o --
 - PROCEDURES:
-     SWL_Init                                  C3CC       D      13       1   .text       
-     SWL_ON                                    C3D9       B      11       1   .text       
-     SWL_OFF                                   C3E4       C      12       2   .text       
-     SWL_Pushed                                C3F0       9       9       3   .text       
+     SWL_Init                                  C3F5       D      13       1   .text       
+     SWL_ON                                    C402       B      11       1   .text       
+     SWL_OFF                                   C40D       C      12       2   .text       
+     SWL_Pushed                                C419       9       9       3   .text       
 - VARIABLES:
 MODULE:                 -- PLL.c.o --
 - PROCEDURES:
-     PLL_To20MHz                               C3F9      15      21       1   .text       
+     PLL_To20MHz                               C422      15      21       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -1416,10 +1416,10 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12xdp512.c.o                           768      0      0
-  main.c.o                                    14    280      0
+  main.c.o                                    13    324      0
   Start12.c.o                                  0     49      0
   rtshc12.c.o (ansixs.lib)                     0    226      0
-  Segs.c.o                                     0    372      0
+  Segs.c.o                                     0    369      0
   PIT.c.o                                      0    237      0
   sw_led.c.o                                   0     45      0
   PLL.c.o                                      0     21      0
@@ -3385,34 +3385,34 @@ OBJECT LIST SORTED BY ADDRESS
      _XGR5                                      3AA       2       2       0   .abs_section_3aa
      _XGR6                                      3AC       2       2       0   .abs_section_3ac
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
-     addr                                      2100       2       2       2   .data       
-     flag1                                     2102       2       2       2   .data       
-     upCounter                                 2104       2       2       6   .bss        
-     count                                     2106       2       2       6   .bss        
-     flag2                                     2108       2       2       4   .bss        
-     flag3                                     210A       2       2       4   .bss        
-     flag4                                     210C       2       2       2   .bss        
+     addr                                      2100       1       1       2   .data       
+     flag1                                     2101       2       2       4   .data       
+     upCounter                                 2103       2       2      13   .bss        
+     count                                     2105       2       2       6   .bss        
+     flag2                                     2107       2       2       4   .bss        
+     flag3                                     2109       2       2       4   .bss        
+     flag4                                     210B       2       2       2   .bss        
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
-     main                                      C053     118     280       8   .text       
-     Segs_Init                                 C16B       D      13       1   .text       
-     Segs_Normal                               C178      2C      44       8   .text       
-     Segs_Custom                               C1A4      21      33       2   .text       
-     Segs_Clear                                C1C5      14      20       3   .text       
-     Segs_16H                                  C1D9      50      80       1   .text       
-     Display                                   C229      39      57       1   .text       
-     Segs_16D                                  C262      7D     125       2   .text       
-     PIT_Init                                  C2DF      B1     177       1   .text       
-     PIT_Sleep                                 C390      3C      60       1   .text       
-     SWL_Init                                  C3CC       D      13       1   .text       
-     SWL_ON                                    C3D9       B      11       1   .text       
-     SWL_OFF                                   C3E4       C      12       2   .text       
-     SWL_Pushed                                C3F0       9       9       3   .text       
-     PLL_To20MHz                               C3F9      15      21       1   .text       
-     _LCMP                                     C40E       A      10       2   RUNTIME     
-     _lDivMod                                  C418      B9     185       2   RUNTIME     
-     _LDIVU                                    C4D1       E      14       4   RUNTIME     
-     _LMODU                                    C4DF      11      17       1   RUNTIME     
+     main                                      C053     144     324       7   .text       
+     Segs_Init                                 C197       D      13       1   .text       
+     Segs_Normal                               C1A4      2C      44       8   .text       
+     Segs_Custom                               C1D0      21      33       2   .text       
+     Segs_Clear                                C1F1      14      20       2   .text       
+     Segs_16H                                  C205      4D      77       1   .text       
+     Display                                   C252      39      57       1   .text       
+     Segs_16D                                  C28B      7D     125       2   .text       
+     PIT_Init                                  C308      B1     177       1   .text       
+     PIT_Sleep                                 C3B9      3C      60       1   .text       
+     SWL_Init                                  C3F5       D      13       1   .text       
+     SWL_ON                                    C402       B      11       1   .text       
+     SWL_OFF                                   C40D       C      12       2   .text       
+     SWL_Pushed                                C419       9       9       3   .text       
+     PLL_To20MHz                               C422      15      21       1   .text       
+     _LCMP                                     C437       A      10       2   RUNTIME     
+     _lDivMod                                  C441      B9     185       2   RUNTIME     
+     _LDIVU                                    C4FA       E      14       4   RUNTIME     
+     _LMODU                                    C508      11      17       1   RUNTIME     
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -3430,27 +3430,25 @@ Segs.c.o:
 sw_led.c.o:
   SWL_TOG SWL_Any 
 NOT USED VARIABLES
-main.c.o:
-  downCounter 
 rtshc12.c.o (ansixs.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC4F0 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC519 ---- SIZE       4 ---
 Filling bytes inserted
- 00032101
-------- ROM-ADDRESS: 0xC4F4 ---- RAM-ADDRESS: 0x2101 ---- SIZE       1 ---
-Name of initialized Object : addr:1
+ 00032100
+------- ROM-ADDRESS: 0xC51D ---- RAM-ADDRESS: 0x2100 ---- SIZE       1 ---
+Name of initialized Object : addr
  04
-------- ROM-ADDRESS: 0xC4F5 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC51E ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0xC4F6 ---- RAM-ADDRESS: 0x2103 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC51F ---- RAM-ADDRESS: 0x2102 ---- SIZE       1 ---
 Name of initialized Object : flag1:1
  01
-------- ROM-ADDRESS: 0xC4F7 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC520 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -3460,8 +3458,8 @@ OBJECT-DEPENDENCIES SECTION
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
 main                      USES PLL_To20MHz SWL_Init Segs_Init Segs_Clear main 
-                                PIT_Sleep count flag1 SWL_Pushed flag2 flag3 flag4 
-                                SWL_OFF upCounter Segs_16H Segs_16D addr Segs_Custom 
+                                PIT_Sleep count flag1 upCounter SWL_Pushed flag2 flag3 
+                                flag4 SWL_OFF Segs_16H Segs_16D addr Segs_Custom 
                                 SWL_ON 
 Segs_Init                 USES _PORTAB _DDRAB Segs_Clear 
 Segs_Normal               USES _PORTAB 
@@ -3544,6 +3542,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 1275
+Number of blocks to be downloaded: 5
+Total size of all blocks to be downloaded: 1316
 

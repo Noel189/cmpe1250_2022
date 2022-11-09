@@ -31,8 +31,8 @@
 /////////////////////////////////////////////////////////////////////////////
 unsigned int upCounter = 0;
 unsigned int count = 0;
-unsigned int downCounter = 9999;
-unsigned int addr = 4;
+// unsigned long downCounter = 9999;
+unsigned char addr = 4;
 unsigned int flag1 = 1;
 unsigned int flag2 = 0;
 unsigned int flag3 = 0;
@@ -71,6 +71,10 @@ void main(void)
     if (flag1&&count==10)
     {
       Segs_16D(upCounter++, Segs_LineTop);
+      if(upCounter==1000)
+      {
+        upCounter=0;
+      }
       count=0;
     }
 
@@ -79,7 +83,6 @@ void main(void)
       flag2 = 1;
       flag3 = 0;
       flag1 = 0;
-     Segs_Clear();
      
     }
     if (SWL_Pushed(SWL_DOWN))
@@ -87,7 +90,6 @@ void main(void)
       flag2 = 0;
       flag3 = 1;
       flag1 = 0;
-     Segs_Clear();
      
     }
     if (SWL_Pushed(SWL_CTR))
@@ -96,7 +98,6 @@ void main(void)
       flag3 = 0;
       flag4 = 1;
       flag1 = 0;
-    Segs_Clear();
     }
 
     if (flag2&&count==10)
@@ -105,6 +106,9 @@ void main(void)
       Segs_16H(upCounter++, Segs_LineTop);
       SWL_ON(SWL_YELLOW);
       count=0;
+      if(upCounter==0x2710){
+        upCounter=0;
+      }
     }
 
     if (flag3&&count==10)
@@ -113,11 +117,18 @@ void main(void)
       Segs_16D(upCounter++, Segs_LineTop);
        SWL_ON(SWL_GREEN);
       count=0; 
+        if(upCounter==1000){
+        upCounter=0;
+      }
     }
 
     if (flag4&&count==10)
     {
       Segs_16D(upCounter--, Segs_LineTop);
+      if(upCounter==0)
+      {
+        upCounter=9999;
+      }
       count=0;
     }
 
