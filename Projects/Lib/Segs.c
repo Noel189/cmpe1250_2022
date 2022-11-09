@@ -62,7 +62,7 @@ void Segs_Custom(unsigned char Addr, unsigned char Value)
    Addr &= 0x07;
 
    // Bank A,Normal op, Decode,Hex,No Data Coming
-   Addr |= 0b00111000;
+   Addr |= 0b01111000;
 
    //    //suppressing decimal point
    //    if(dp)
@@ -155,16 +155,52 @@ void Display(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int v4,
 }
 
 // show a decimal value on the first or second line of the 7-segs
-void Segs_16D (unsigned int Value, Segs_LineOption Line)
+void Segs_16D(unsigned int value, Segs_LineOption Line)
 {
-  unsigned int Addr;
-   if(Line==0){
-    Addr=0;
-   }
-   else if(Line==1)
+   unsigned int addr;
+   unsigned int v1=(value) % 10;
+   unsigned int v2 = (value / 10) % 10;
+   unsigned int v3 = (value / 100) % 10;
+   unsigned int v4 = (value / 1000) % 10;
+   if (Line == 0)
    {
-   Addr=1;
+      addr = 0;
+   }
+   else if (Line == 1)
+   {
+      addr = 4;
    }
 
-   Segs_Custom(Addr,Value);
+
+ if (value < 10)
+   {
+         // call segs normal
+   Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
+   }
+   else if (value >= 10 && value <= 99)
+   {
+      Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+      addr += 1;
+      Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+   }
+   else if (value >= 100 && value <= 999)
+   {
+      Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
+      addr += 1;
+      Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+      addr += 1;
+      Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+   }
+   else if (value >= 1000 && value <= 9999)
+   {
+      // call segs normal
+      Segs_Normal((unsigned char)addr, (unsigned char)v4, Segs_DP_OFF);
+      addr += 1;
+      Segs_Normal((unsigned char)addr, (unsigned char)v3, Segs_DP_OFF);
+      addr += 1;
+      Segs_Normal((unsigned char)addr, (unsigned char)v2, Segs_DP_OFF);
+      addr += 1;
+      Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
+   }
+
 }

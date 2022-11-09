@@ -30,7 +30,10 @@
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
 unsigned int upCounter = 0;
-unsigned int downCounter = 0xFFFF;
+unsigned int count = 0;
+unsigned int downCounter = 9999;
+unsigned int addr = 4;
+unsigned int flag=0;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -49,7 +52,7 @@ void main(void)
   // one-time initializations
   /////////////////////////////////////////////////////////////////////////////
 
-  PLL_To20MHz(); 
+  PLL_To20MHz();
   SWL_Init();
   Segs_Init();
 
@@ -59,27 +62,72 @@ void main(void)
   for (;;)
   {
     // Tier-1
-    if (SWL_Pushed(SWL_CTR))
-    {
-      for (;;)
+    // if (SWL_Pushed(SWL_CTR))
+    // {
+
+      PIT_Sleep(20000000ul, PITTF_Ch1, 100);
+      count++;
+
+      if (count==10)
       {
-        PIT_Sleep(20000000ul, PITTF_Ch1, 100);
-        Segs_16H(upCounter++, Segs_LineTop);
-        Segs_16H(downCounter--, Segs_LineBottom);
+        Segs_16D(upCounter++, Segs_LineTop);
+        count = 0;
       }
-    }
-    else
-    {
-      // Segs_8H(2, 7);
-      // Segs_Custom(1, 0b10001001);
-      // Segs_Custom(2, 0b11110000);
-      // Segs_Custom(5, 0b10000011);
-      // Segs_Custom(6, 0b10110001);
-      // Segs_Normal(4, '3', Segs_DP_OFF);
-      Segs_16D(524,Segs_LineBottom);
-    }
+  // }
+      // if (SWL_Pushed(SWL_DOWN))
+      // {
+      //  // for(;;){
+      // PIT_Sleep(20000000ul, PITTF_Ch0, 100);
+      //   Segs_16D(upCounter++, Segs_LineTop);
+      //   SWL_ON(SWL_GREEN);
+      //   SWL_OFF(SWL_YELLOW);
+      // //  }
+  
+   
+
+      // }
+    //   if (SWL_Pushed(SWL_UP))
+    //   {
+    //  // for(;;){
+    //   PIT_Sleep(20000000ul, PITTF_Ch0, 100);
+    //    Segs_16H(upCounter++, Segs_LineTop);
+    //     SWL_ON(SWL_YELLOW);
+    //     SWL_OFF(SWL_GREEN);
+    // //  }
+     
+        
+ 
+    //   }
+      // if (SWL_Pushed(SWL_CTR))
+      // {
+      //      count=0;
+      //   downCounter = upCounter;
+      //   for (;;)
+      //   {
+
+      //     PIT_Sleep(20000000ul, PITTF_Ch0, 100);
+      //     count++;
+
+      //     if (count == 10)
+      //     {
+      //       Segs_16D(downCounter, Segs_LineTop);
+      //       downCounter--;
+      //       count=0;
+      //     }
+      //   }
+    
+
+    // Segs_16H(downCounter--, Segs_LineBottom);
+
+    // bottom display, turn on each successive decimal points each 200ms
+    //   if(count%2==0){
+    //       if(addr<=7)
+    //   Segs_Custom(addr++, 0b00000000);
+    //   }
   }
+  // }
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Functions
