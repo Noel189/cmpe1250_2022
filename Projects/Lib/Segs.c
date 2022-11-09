@@ -62,7 +62,7 @@ void Segs_Custom(unsigned char Addr, unsigned char Value)
    Addr &= 0x07;
 
    // Bank A,Normal op, Decode,Hex,No Data Coming
-   Addr |= 0b01111000;
+   Addr |= 0b01011000;
 
    //    //suppressing decimal point
    //    if(dp)

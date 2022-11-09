@@ -70,12 +70,12 @@ void main(void)
     }
     else
     {
-      Segs_8H(7, 0xE4);
-      Segs_Custom(1, 0b01001010);
-      Segs_Custom(2, 0b11110000);
-      Segs_Custom(5, 0b10001011);
-      Segs_Custom(6, 0b10110001);
-      Segs_Normal(4, '3', Segs_DP_OFF);
+      // Segs_8H(2, 7);
+      Segs_Custom(1, 0b10000101);
+      // Segs_Custom(2, 0b11110000);
+      // Segs_Custom(5, 0b10000011);
+      // Segs_Custom(6, 0b10110001);
+      // Segs_Normal(4, '3', Segs_DP_OFF);
     }
   }
 }
