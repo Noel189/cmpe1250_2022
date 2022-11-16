@@ -83,7 +83,7 @@ void main(void)
     }
 
     //Tier-2
-      Segs_Clear_Upper();
+     Segs_Clear_Upper();
      Segs_Custom(addr,0b11111010);
      PIT_Sleep(20000000ul,PITTF_Ch1,100);
      
