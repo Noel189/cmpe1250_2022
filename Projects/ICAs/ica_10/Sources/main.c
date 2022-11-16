@@ -97,6 +97,7 @@ void main(void)
         if(addr==0)
         {
           addr=4;
+          Segs_SayErr(Segs_LineBottom);
         }
         if(addr>0)
         {

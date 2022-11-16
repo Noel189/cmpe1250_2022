@@ -191,13 +191,14 @@ void Segs_16D(unsigned int value, Segs_LineOption Line)
 // say Err on the appropriate line
 void Segs_SayErr (Segs_LineOption Line)
 {
+    unsigned char addr;
    Segs_Clear();
-   unsigned char addr;
    if(Line==0)
    {
       addr=0;
    }
-   else if(Line==1){
+   else if(Line==1)
+   {
       addr=4;
    }
    Segs_Custom(addr,0b11111011);
