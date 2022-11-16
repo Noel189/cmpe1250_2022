@@ -94,7 +94,11 @@ void main(void)
       //look for switch presses
       if(SWL_Pushed(SWL_LEFT))
       {
-        if(addr>0 && addr<4)
+        if(addr==0)
+        {
+          addr=4;
+        }
+        if(addr>0)
         {
           addr--;
           ++changeCounter;
@@ -103,9 +107,15 @@ void main(void)
       }
       if(SWL_Pushed(SWL_RIGHT))
       {
-        if(addr>=0 && addr <3)
+        if(addr==3)
+        {
+          addr=-1;
+        }
+        if(addr<4)
         {
           addr++;
+             ++changeCounter;
+          Segs_16H(changeCounter,Segs_LineBottom);
         }
       }
 
