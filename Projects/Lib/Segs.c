@@ -187,3 +187,21 @@ void Segs_16D(unsigned int value, Segs_LineOption Line)
    addr += 1;
    Segs_Normal((unsigned char)addr, (unsigned char)v1, Segs_DP_OFF);
 }
+
+// say Err on the appropriate line
+void Segs_SayErr (Segs_LineOption Line)
+{
+   Segs_Clear();
+   unsigned char addr;
+   if(Line==0)
+   {
+      addr=0;
+   }
+   else if(Line==1){
+      addr=4;
+   }
+   Segs_Custom(addr,0b11111011);
+   Segs_Custom(++addr,0b11111011);
+   Segs_Custom(++addr,0b11101110);
+   Segs_Custom(++addr,0b11010111);
+}
