@@ -31,6 +31,9 @@
 /////////////////////////////////////////////////////////////////////////////
 unsigned int upCounter = 0;
 unsigned int downCounter = 0xFFFF;
+char addr=0;
+unsigned int loopCount=0;
+unsigned int changeCounter=0;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -76,8 +79,38 @@ void main(void)
       // Segs_Custom(5, 0b10000011);
       // Segs_Custom(6, 0b10110001);
       // Segs_Normal(4, '3', Segs_DP_OFF);
-      Segs_16D(524,Segs_LineBottom);
+      // Segs_16D(524,Segs_LineBottom);
     }
+
+    //Tier-2
+      Segs_Clear_Upper();
+     Segs_Custom(addr,0b11111010);
+     PIT_Sleep(20000000ul,PITTF_Ch1,100);
+     
+     //look for loop count
+     if(++loopCount>9)
+     {
+      loopCount=0;
+      //look for switch presses
+      if(SWL_Pushed(SWL_LEFT))
+      {
+        if(addr>0 && addr<4)
+        {
+          addr--;
+          ++changeCounter;
+          Segs_16H(changeCounter,Segs_LineBottom);
+        }
+      }
+      if(SWL_Pushed(SWL_RIGHT))
+      {
+        if(addr>=0 && addr <3)
+        {
+          addr++;
+        }
+      }
+
+     }
+
   }
 }
 

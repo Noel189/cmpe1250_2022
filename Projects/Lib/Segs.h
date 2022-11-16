@@ -75,7 +75,12 @@ void Segs_16D (unsigned int Value, Segs_LineOption Line);
 void Segs_8H (unsigned char Addr, unsigned char Value);
 
 // clear the display
+
 void Segs_Clear(void);
+
+Segs_Clear_Upper(void);
+
+void Segs_Clear_Lower(void);
 
 // say Err on the appropriate line
 void Segs_SayErr (Segs_LineOption Line);

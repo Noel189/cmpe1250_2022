@@ -85,6 +85,22 @@ void Segs_Clear(void)
       Segs_Custom(i, 0b10000000);
    }
 }
+void Segs_Clear_Upper(void)
+{
+   unsigned char i = 0;
+   for (; i < 4; i++)
+   {
+      Segs_Custom(i, 0b10000000);
+   }
+}
+void Segs_Clear_Lower(void)
+{
+   unsigned char i = 4;
+   for (; i < 8; i++)
+   {
+      Segs_Custom(i, 0b10000000);
+   }
+}
 
 // show the 8-bit value starting on the digit as addr (0-6)
 void Segs_8H(unsigned char Addr, unsigned char Value)
