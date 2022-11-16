@@ -97,7 +97,7 @@ void main(void)
         if(addr==0)
         {
           addr=4;
-          Segs_SayErr(Segs_LineBottom);
+       
         }
         if(addr>0)
         {
@@ -116,7 +116,7 @@ void main(void)
         {
           addr++;
              ++changeCounter;
-          Segs_16H(changeCounter,Segs_LineBottom);
+         Segs_16H(changeCounter,Segs_LineBottom);
         }
       }
 
