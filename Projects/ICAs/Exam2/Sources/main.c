@@ -1,0 +1,121 @@
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 9S12X Program: ICA10- Seven Segment Display Basic Functions
+// Processor:     MC9S12XDP512
+// Bus Speed:     20 MHz (Requires Active PLL)
+// Author:        Noel Tesfe
+// Details:       A more detailed explanation of the program is entered here
+// Date:          03/11/2022
+// Revision History :
+//  each revision will have a date + desc. of changes
+
+/////////////////////////////////////////////////////////////////////////////
+#include <hidef.h>      /* common defines and macros */
+#include "derivative.h" /* derivative-specific definitions */
+
+// other system includes or your includes go here
+//#include "pll.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+#include "sw_led.h"
+#include "PLL.h"
+#include "PIT.h"
+#include "segs.h"
+/////////////////////////////////////////////////////////////////////////////
+// Local Prototypes
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Global Variables
+/////////////////////////////////////////////////////////////////////////////
+
+unsigned int baseInterval = 69;
+unsigned int given = 25;
+unsigned int delay = 94;
+unsigned int count = 0xBEEF;
+unsigned int blockingDelay = 5;
+/////////////////////////////////////////////////////////////////////////////
+// Constants
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Main Entry
+/////////////////////////////////////////////////////////////////////////////
+void main(void)
+{
+  // main entry point - these two lines must appear first
+  _DISABLE_COP();
+
+  EnableInterrupts;
+
+  /////////////////////////////////////////////////////////////////////////////
+  // one-time initializations
+  /////////////////////////////////////////////////////////////////////////////
+
+  PLL_To20MHz();
+  SWL_Init();
+  Segs_Init();
+  (void)PIT_Init(20000000ul, PITTF_Ch0, delay);
+  /////////////////////////////////////////////////////////////////////////////
+  // main program loop
+  /////////////////////////////////////////////////////////////////////////////
+  for (;;)
+  {
+    PIT_Sleep(20000000ul, PITTF_Ch1, delay);
+    SWL_TOG(SWL_RED);
+
+    // TIER A
+    //  poll for pit flag, on channel 0
+    if (PITTF_PTF0)
+    {
+
+      // acknowledge the flag
+      PITTF = PITTF_PTF0_MASK; // clears the flag
+
+      // toogle the red led
+      PIT_Sleep(20000000ul, PITTF_Ch1, 15);
+      SWL_ON(SWL_GREEN);
+      PIT_Sleep(20000000ul, PITTF_Ch1, blockingDelay);
+      SWL_OFF(SWL_GREEN);
+    }
+
+    // TIER B
+    if (SWL_Pushed(SWL_LEFT))
+    {
+      Segs_16H(count--, Segs_LineTop);
+    }
+
+    // TIER C
+
+    if (SWL_Pushed(SWL_UP))
+    {
+      blockingDelay = blockingDelay * 2;
+    }
+
+    if (SWL_Pushed(SWL_DOWN))
+    {
+      blockingDelay = 5;
+    }
+
+    // TIER D
+    if (blockingDelay == 5)
+    {
+
+      Segs_Custom(4, 0b10000001);
+    }
+    else
+    {
+      Segs_Clear_Lower();
+      Segs_Custom(4, 0b11000000);
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Functions
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+// Interrupt Service Routines
+/////////////////////////////////////////////////////////////////////////////
