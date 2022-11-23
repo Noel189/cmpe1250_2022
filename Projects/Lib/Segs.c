@@ -24,6 +24,7 @@ void Segs_Init(void)
    Segs_Clear();
 }
 
+//displays a character on a specified address
 void Segs_Normal(unsigned char Addr, unsigned char Value, Segs_DPOption dp)
 {
    // trim address to range
@@ -77,6 +78,7 @@ void Segs_Custom(unsigned char Addr, unsigned char Value)
        Segs_WLATCH // latch data
 }
 
+//clears the upper and lower lines
 void Segs_Clear(void)
 {
    unsigned char i = 0;
@@ -85,6 +87,8 @@ void Segs_Clear(void)
       Segs_Custom(i, 0b10000000);
    }
 }
+
+//clears the upper line
 void Segs_Clear_Upper(void)
 {
    unsigned char i = 0;
@@ -93,6 +97,8 @@ void Segs_Clear_Upper(void)
       Segs_Custom(i, 0b10000000);
    }
 }
+
+//clears the lower line
 void Segs_Clear_Lower(void)
 {
    unsigned char i = 4;
@@ -149,6 +155,7 @@ void Segs_16H(unsigned int Value, Segs_LineOption Line)
    Display(v1, v2, v3, v4, addr);
 }
 
+//a method called from Segs_16H
 void Display(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int v4, unsigned int addr)
 {
    // call segs normal
