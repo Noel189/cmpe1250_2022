@@ -115,3 +115,21 @@ void lcd_Clear (void)
 {
     lcd_Inst(0x01);
 }
+
+void lcd_String (char * straddr)
+{
+    while(*straddr)
+    {
+       //call lcd_Data to display the value in the lcd
+       lcd_Data(*straddr);
+       ++straddr;
+    }
+}
+
+void lcd_StringXY (unsigned char ix, unsigned char iy, char * straddr)
+{
+    //call lcd_AddrXY
+    lcd_AddrXY(ix,iy);
+    //call lcd_string
+    lcd_String(* straddr);
+}
