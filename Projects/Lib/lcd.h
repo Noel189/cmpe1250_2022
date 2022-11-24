@@ -38,7 +38,7 @@ void lcd_AddrXY (unsigned char ix, unsigned char iy);
 void lcd_String (char * straddr);
 void lcd_StringXY (unsigned char ix, unsigned char iy, char * straddr);
 
-void lcd_DispControl (unsigned char curon, unsigned char blinkon);
+void lcd_DispControl (unsigned char dispon,unsigned char curon, unsigned char blinkon);
 void lcd_Clear (void);
 void lcd_Home (void);
 void lcd_ShiftL (void);
