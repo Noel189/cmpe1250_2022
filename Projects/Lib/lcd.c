@@ -137,9 +137,7 @@ void lcd_StringXY (unsigned char ix, unsigned char iy, char * straddr)
 
 void lcd_DispControl (unsigned char dispon,unsigned char curon, unsigned char blinkon)
 {
-    lcd_Inst(dispon);
-    lcd_Inst(curon); 
-    lcd_Inst(blinkon);
+    lcd_Inst(0x0F);
 
-    
+  
 }
