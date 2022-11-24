@@ -17,6 +17,7 @@
 #define lcd_RSDown PORTK &=(~4);
 #define lcd_MicroDelay {char __x=1;while(--__x);}
 
+
 //wait for the LCD to be not busy (blocking)
 //service function,private
 void lcd_Busy(void)
@@ -131,5 +132,5 @@ void lcd_StringXY (unsigned char ix, unsigned char iy, char * straddr)
     //call lcd_AddrXY
     lcd_AddrXY(ix,iy);
     //call lcd_string
-    lcd_String(* straddr);
+    lcd_String(straddr);
 }
