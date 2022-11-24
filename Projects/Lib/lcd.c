@@ -134,3 +134,8 @@ void lcd_StringXY (unsigned char ix, unsigned char iy, char * straddr)
     //call lcd_string
     lcd_String(straddr);
 }
+
+void lcd_DispControl (unsigned char curon, unsigned char blinkon)
+{
+    
+}
