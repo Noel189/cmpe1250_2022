@@ -156,3 +156,9 @@ void lcd_DispControl (unsigned char dispon,unsigned char curon, unsigned char bl
   //call lcd_inst
   lcd_Inst(basecommand);
 }
+
+void lcd_Home (void)
+{
+    //get the address back to ix=0,iy=0
+    lcd_AddrXY(0,0);
+}
