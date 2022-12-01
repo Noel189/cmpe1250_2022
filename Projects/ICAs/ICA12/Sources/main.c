@@ -30,6 +30,9 @@ char buff [] = "Hello from Earth";
 char name[] = "NTesfe";
 unsigned char ix=14;
 unsigned char iy=3;
+unsigned char dispon=0;
+unsigned char curon=1;
+unsigned char blinkon=1;
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
@@ -56,6 +59,7 @@ void main(void)
 
 
   lcd_Clear();
+  lcd_DispControl(dispon,curon,blinkon);
   lcd_String(buff); //displays the string starting from the upper left corner
   lcd_StringXY(ix,iy,name); //displays a string starting from the specified position
  
