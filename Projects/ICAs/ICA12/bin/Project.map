@@ -28,8 +28,8 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     17
-  _Copy    *toCopyDownBeg 0xC32B
+  _Range   pZeroOut       0x2100     26
+  _Copy    *toCopyDownBeg 0xC374
 } _startupData;
 
 *********************************************************************************************
@@ -38,10 +38,10 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        34     R     0xC031     0xC052   ROM_C000
-.text                            502     R     0xC053     0xC248   ROM_C000
-.copy                             22     R     0xC32B     0xC340   ROM_C000
+.text                            575     R     0xC053     0xC291   ROM_C000
+.copy                             32     R     0xC374     0xC393   ROM_C000
 .stack                           256   R/W     0x2000     0x20FF   RAM
-.data                             17   R/W     0x2100     0x2110   RAM
+.data                             26   R/W     0x2100     0x2119   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -689,12 +689,12 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_3aa                   2   N/I      0x3AA      0x3AB   .absSeg644
 .abs_section_3ac                   2   N/I      0x3AC      0x3AD   .absSeg645
 .abs_section_3ae                   2   N/I      0x3AE      0x3AF   .absSeg646
-RUNTIME                          226     R     0xC249     0xC32A   ROM_C000
+RUNTIME                          226     R     0xC292     0xC373   ROM_C000
 .vectSeg647_vect                   2     R     0xFFFE     0xFFFF   .vectSeg647
 
 Summary of section sizes per section type:
-READ_ONLY (R):         343 (dec:      835)
-READ_WRITE (R/W):      111 (dec:      273)
+READ_ONLY (R):         396 (dec:      918)
+READ_WRITE (R/W):      11A (dec:      282)
 NO_INIT (N/I):         300 (dec:      768)
 
 *********************************************************************************************
@@ -1359,9 +1359,12 @@ MODULE:                 -- mc9s12xdp512.c.o --
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C053      19      25       1   .text       
+     main                                      C053      29      41       1   .text       
 - VARIABLES:
      buff                                      2100      11      17       1   .data       
+     name                                      2111       7       7       1   .data       
+     ix                                        2118       1       1       1   .data       
+     iy                                        2119       1       1       1   .data       
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -1372,32 +1375,35 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          2100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansixs.lib) --
 - PROCEDURES:
-     _LCMP                                     C249       A      10       2   RUNTIME     
-     _lDivMod                                  C253      B9     185       2   RUNTIME     
-     _LDIVU                                    C30C       E      14       4   RUNTIME     
-     _LMODU                                    C31A      11      17       1   RUNTIME     
+     _LCMP                                     C292       A      10       2   RUNTIME     
+     _lDivMod                                  C29C      B9     185       2   RUNTIME     
+     _LDIVU                                    C355       E      14       4   RUNTIME     
+     _LMODU                                    C363      11      17       1   RUNTIME     
 - VARIABLES:
 MODULE:                 -- lcd.c.o --
 - PROCEDURES:
-     lcd_Busy                                  C06C      20      32       2   .text       
-     lcd_Inst                                  C08C      19      25       5   .text       
-     lcd_Init                                  C0A5      68     104       1   .text       
-     lcd_Data                                  C10D      1A      26       1   .text       
-     lcd_Clear                                 C127       5       5       1   .text       
-     lcd_String                                C12C       E      14       1   .text       
+     lcd_Busy                                  C07C      20      32       2   .text       
+     lcd_Inst                                  C09C      19      25       6   .text       
+     lcd_Init                                  C0B5      68     104       1   .text       
+     lcd_Data                                  C11D      1A      26       1   .text       
+     lcd_Addr                                  C137       5       5       1   .text       
+     lcd_AddrXY                                C13C      26      38       1   .text       
+     lcd_Clear                                 C162       5       5       1   .text       
+     lcd_String                                C167       E      14       2   .text       
+     lcd_StringXY                              C175       E      14       1   .text       
 - VARIABLES:
 MODULE:                 -- PIT.c.o --
 - PROCEDURES:
-     PIT_Init                                  C13A      B1     177       1   .text       
-     PIT_Sleep                                 C1EB      3C      60       3   .text       
+     PIT_Init                                  C183      B1     177       1   .text       
+     PIT_Sleep                                 C234      3C      60       3   .text       
 - VARIABLES:
 MODULE:                 -- PLL.c.o --
 - PROCEDURES:
-     PLL_To20MHz                               C227      15      21       1   .text       
+     PLL_To20MHz                               C270      15      21       1   .text       
 - VARIABLES:
 MODULE:                 -- sw_led.c.o --
 - PROCEDURES:
-     SWL_Init                                  C23C       D      13       1   .text       
+     SWL_Init                                  C285       D      13       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -1405,23 +1411,23 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12xdp512.c.o                           768      0      0
-  main.c.o                                    17     25      0
+  main.c.o                                    26     41      0
   Start12.c.o                                  0     49      0
   rtshc12.c.o (ansixs.lib)                     0    226      0
-  lcd.c.o                                      0    206      0
+  lcd.c.o                                      0    263      0
   PIT.c.o                                      0    237      0
   PLL.c.o                                      0     21      0
   sw_led.c.o                                   0     13      0
-  other                                      256     36     22
+  other                                      256     36     32
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main lcd_Busy lcd_Inst lcd_Init lcd_Data lcd_Clear lcd_String PIT_Init 
-  PIT_Sleep PLL_To20MHz SWL_Init 
+  main lcd_Busy lcd_Inst lcd_Init lcd_Data lcd_Addr lcd_AddrXY lcd_Clear 
+  lcd_String lcd_StringXY PIT_Init PIT_Sleep PLL_To20MHz SWL_Init 
 SECTION: ".data"
-  buff 
+  buff name ix iy 
 SECTION: ".init"
   Init _Startup 
 SECTION: ".abs_section_8"
@@ -3373,23 +3379,29 @@ OBJECT LIST SORTED BY ADDRESS
      _XGR6                                      3AC       2       2       0   .abs_section_3ac
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
      buff                                      2100      11      17       1   .data       
+     name                                      2111       7       7       1   .data       
+     ix                                        2118       1       1       1   .data       
+     iy                                        2119       1       1       1   .data       
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
-     main                                      C053      19      25       1   .text       
-     lcd_Busy                                  C06C      20      32       2   .text       
-     lcd_Inst                                  C08C      19      25       5   .text       
-     lcd_Init                                  C0A5      68     104       1   .text       
-     lcd_Data                                  C10D      1A      26       1   .text       
-     lcd_Clear                                 C127       5       5       1   .text       
-     lcd_String                                C12C       E      14       1   .text       
-     PIT_Init                                  C13A      B1     177       1   .text       
-     PIT_Sleep                                 C1EB      3C      60       3   .text       
-     PLL_To20MHz                               C227      15      21       1   .text       
-     SWL_Init                                  C23C       D      13       1   .text       
-     _LCMP                                     C249       A      10       2   RUNTIME     
-     _lDivMod                                  C253      B9     185       2   RUNTIME     
-     _LDIVU                                    C30C       E      14       4   RUNTIME     
-     _LMODU                                    C31A      11      17       1   RUNTIME     
+     main                                      C053      29      41       1   .text       
+     lcd_Busy                                  C07C      20      32       2   .text       
+     lcd_Inst                                  C09C      19      25       6   .text       
+     lcd_Init                                  C0B5      68     104       1   .text       
+     lcd_Data                                  C11D      1A      26       1   .text       
+     lcd_Addr                                  C137       5       5       1   .text       
+     lcd_AddrXY                                C13C      26      38       1   .text       
+     lcd_Clear                                 C162       5       5       1   .text       
+     lcd_String                                C167       E      14       2   .text       
+     lcd_StringXY                              C175       E      14       1   .text       
+     PIT_Init                                  C183      B1     177       1   .text       
+     PIT_Sleep                                 C234      3C      60       3   .text       
+     PLL_To20MHz                               C270      15      21       1   .text       
+     SWL_Init                                  C285       D      13       1   .text       
+     _LCMP                                     C292       A      10       2   RUNTIME     
+     _lDivMod                                  C29C      B9     185       2   RUNTIME     
+     _LDIVU                                    C355       E      14       4   RUNTIME     
+     _LMODU                                    C363      11      17       1   RUNTIME     
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -3402,8 +3414,6 @@ rtshc12.c.o (ansixs.lib):
   _CASE_DIRECT_BYTE _CASE_CHECKED _CASE_CHECKED_BYTE _CASE_SEARCH 
   _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL _FPCMP _PADD 
   _PSUB _PINC _PDEC 
-lcd.c.o:
-  lcd_Addr lcd_AddrXY lcd_StringXY 
 sw_led.c.o:
   SWL_ON SWL_OFF SWL_TOG SWL_Pushed SWL_Any 
 NOT USED VARIABLES
@@ -3413,14 +3423,29 @@ rtshc12.c.o (ansixs.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC32B ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC374 ---- SIZE       4 ---
 Filling bytes inserted
- 00102100
-------- ROM-ADDRESS: 0xC32F ---- RAM-ADDRESS: 0x2100 ---- SIZE      16 ---
+ 001A2100
+------- ROM-ADDRESS: 0xC378 ---- RAM-ADDRESS: 0x2100 ---- SIZE      16 ---
 Name of initialized Object : buff
  48656C6C6F 2066726F6D 2045617274
  68
-------- ROM-ADDRESS: 0xC33F ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC388 ---- SIZE       1 ---
+Filling bytes inserted
+ 00
+------- ROM-ADDRESS: 0xC389 ---- RAM-ADDRESS: 0x2111 ---- SIZE       6 ---
+Name of initialized Object : name
+ 4E54657366 65
+------- ROM-ADDRESS: 0xC38F ---- SIZE       1 ---
+Filling bytes inserted
+ 00
+------- ROM-ADDRESS: 0xC390 ---- RAM-ADDRESS: 0x2118 ---- SIZE       1 ---
+Name of initialized Object : ix
+ 0E
+------- ROM-ADDRESS: 0xC391 ---- RAM-ADDRESS: 0x2119 ---- SIZE       1 ---
+Name of initialized Object : iy
+ 03
+------- ROM-ADDRESS: 0xC392 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -3430,13 +3455,16 @@ OBJECT-DEPENDENCIES SECTION
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
 main                      USES PLL_To20MHz SWL_Init lcd_Init lcd_Clear buff 
-                                lcd_String 
+                                lcd_String ix iy name lcd_StringXY 
 lcd_Busy                  USES _PORTK _DDRH _PTH 
 lcd_Inst                  USES lcd_Busy _PORTK _DDRH _PTH 
 lcd_Init                  USES _PTH _DDRH _PORTK _DDRK PIT_Sleep lcd_Inst 
 lcd_Data                  USES lcd_Busy _PORTK _DDRH _PTH 
+lcd_Addr                  USES lcd_Inst 
+lcd_AddrXY                USES lcd_Addr 
 lcd_Clear                 USES lcd_Inst 
 lcd_String                USES lcd_Data 
+lcd_StringXY              USES lcd_AddrXY lcd_String 
 PIT_Init                  USES _LDIVU _LMODU _LCMP _PITMTLD0 _PITLD0 _PITCE 
                                 _PITMTLD1 _PITLD1 _PITMUX _PITCFLMT 
 PIT_Sleep                 USES PIT_Init _PITTF 
@@ -3481,11 +3509,21 @@ DEPENDENCY TREE
  |  |  +- lcd_Inst             (see above)
  |  |     
  |  +- lcd_String          
+ |  |  | 
+ |  |  +- lcd_Data            
+ |  |     | 
+ |  |     +- lcd_Busy             (see above)
+ |  |        
+ |  +- lcd_StringXY        
  |     | 
- |     +- lcd_Data            
- |        | 
- |        +- lcd_Busy             (see above)
- |           
+ |     +- lcd_AddrXY          
+ |     |  | 
+ |     |  +- lcd_Addr            
+ |     |     | 
+ |     |     +- lcd_Inst             (see above)
+ |     |        
+ |     +- lcd_String           (see above)
+ |        
  +- _Startup            
     | 
     +- Init                
@@ -3499,5 +3537,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 835
+Total size of all blocks to be downloaded: 918
 
