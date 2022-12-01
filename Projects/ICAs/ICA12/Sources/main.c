@@ -26,13 +26,13 @@
 /////////////////////////////////////////////////////////////////////////////
 // Local Prototypes
 /////////////////////////////////////////////////////////////////////////////
-char buff [] = "Hello from Earth"; 
+char buff[] = "Hello from Earth";
 char name[] = "NTesfe";
-unsigned char ix=14;
-unsigned char iy=3;
-unsigned char dispon=1;
-unsigned char curon=0;
-unsigned char blinkon=0;
+unsigned char ix = 10;
+unsigned char iy = 3;
+unsigned char dispon = 1;
+unsigned char curon = 1;
+unsigned char blinkon = 1;
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
@@ -57,20 +57,17 @@ void main(void)
   SWL_Init();
   lcd_Init();
 
-
   lcd_Clear();
-  lcd_DispControl(dispon,curon,blinkon);
-  lcd_String(buff); //displays the string starting from the upper left corner
-  lcd_StringXY(ix,iy,name); //displays a string starting from the specified position
- 
+  lcd_DispControl(dispon, curon, blinkon);
+  lcd_String(buff);           // displays the string starting from the upper left corner
+  lcd_StringXY(ix, iy, name); // displays a string starting from the specified position
+  lcd_Home();
 
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
-     
-
   }
 }
 
