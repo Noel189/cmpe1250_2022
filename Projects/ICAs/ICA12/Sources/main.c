@@ -30,9 +30,9 @@ char buff [] = "Hello from Earth";
 char name[] = "NTesfe";
 unsigned char ix=14;
 unsigned char iy=3;
-unsigned char dispon=0;
-unsigned char curon=1;
-unsigned char blinkon=1;
+unsigned char dispon=1;
+unsigned char curon=0;
+unsigned char blinkon=0;
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
