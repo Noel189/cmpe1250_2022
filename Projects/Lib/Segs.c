@@ -213,3 +213,4 @@ void Segs_SayErr (Segs_LineOption Line)
    Segs_Custom(++addr,0b11101110);
    Segs_Custom(++addr,0b11010111);
 }
+
