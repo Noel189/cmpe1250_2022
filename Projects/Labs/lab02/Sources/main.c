@@ -30,7 +30,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
-unsigned char value= 2;
+unsigned int value= 2;
 unsigned int oldState=0;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
@@ -61,20 +61,21 @@ void main(void)
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
-       Segs_Normal(2,value,Segs_DP_ON);
+       Segs_16D(value,Segs_LineTop);
      
      {
       //get the current state of the switch
       int curState = SWL_Pushed(SWL_UP);
 
       if((curState != oldState) && curState){
-        if(++value>9){
+        if(++value > 9){
           value=0;
         }
-        oldState=curState;
+       
       }
+       oldState=curState;
      }
-     
+    
  PIT_Sleep(20000000ul,PITTF_Ch1,20); //inject some dilay
 
   }
