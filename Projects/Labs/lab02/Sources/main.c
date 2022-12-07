@@ -7,7 +7,7 @@
 // Bus Speed:     20 MHz (Requires Active PLL)
 // Author:        Noel Tesfe
 // Details:       A more detailed explanation of the program is entered here
-// Date:          10/11/2022
+// Date:         07/12/2022
 // Revision History :
 //  each revision will have a date + desc. of changes
 
@@ -30,7 +30,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
-
+unsigned char value= 2;
+unsigned char flag=1;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -59,6 +60,18 @@ void main(void)
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
+       Segs_Normal(2,value,Segs_DP_ON);
+      if(SWL_Pushed(SWL_UP)) 
+      { 
+        flag=1;
+        
+      }
+      if(flag && value <10 )
+      {
+          value = value+1;
+    
+      }
+     
 
 
   }
