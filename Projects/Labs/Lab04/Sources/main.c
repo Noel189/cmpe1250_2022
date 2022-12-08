@@ -43,6 +43,9 @@ unsigned char ix=2;
 unsigned char iy=3;
 char buff3[21]={0};
 char buff4[21]={0};
+unsigned int oldState=0;
+unsigned int leftOldState=0;
+unsigned int ctrOldState=0;
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -66,22 +69,25 @@ void main(void)
   Segs_Init();
   Segs_Clear();
   lcd_Init();
+  (void)PIT_Init(20000000ul,PITTF_Ch0,100000ul);
 
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
   /////////////////////////////////////////////////////////////////////////////
   for (;;)
   {
-        lcd_AddrXY(2,3);
-        lcd_DispControl(dispon,curson,blinkon);
+        // lcd_AddrXY(ix,iy);
+    lcd_DispControl(dispon,curson,blinkon);
     // 
+    if(PITTF_PTF0)
     {
-  
+//    PIT_Sleep(20000000ul,PITTF_Ch1,100);
+  // acknowledge the flag
+      PITTF = PITTF_PTF0_MASK;//clears the flag
     (void)sprintf(buff, "Count: %07.1f", value+=0.1);
     lcd_StringXY(0, 0, buff);
-    PIT_Sleep(20000000ul,PITTF_Ch1,100);
-
     }
+
 //display decimal DEC:
     {
         // GenerateDecimal(buff3);
@@ -91,23 +97,56 @@ void main(void)
 //display decimal HEX:
     {
         // GenerateDecimal(buff3);
-         (void)sprintf(buff4,"HEX: %X%X%X%X",0,0,0,0,0);
+         (void)sprintf(buff4,"HEX: %X%X%X%X",0,0,0,0);
          lcd_StringXY(0, 2, buff4);
     }
 
     {
+       
      //centered at the bottom of the display show a 16bit binary number
-     for(bitPos;bitPos<16;bitPos++){
-    
+
       GenerateBits(buff2);
-      // (void)sprintf(buff2[bitPos],"%d",0);
-      lcd_StringXY(ix, iy, buff2);
-   
-     }
+      lcd_StringXY(2, 3, buff2);
+      lcd_AddrXY(ix,iy);
+
         
     }
 
+    //when the right switch button is pressed
+    {
+        int curState = SWL_Pushed(SWL_RIGHT);
+        if((curState != oldState) && curState)
+        {
+
+            lcd_AddrXY(++ix,iy);
+        }
+
+        oldState=curState;
+    }
+
+    //when the left switch button is pressed
+
+    {
+        int curState = SWL_Pushed(SWL_LEFT);
+        if((curState != leftOldState) && curState)
+        {
+            lcd_AddrXY(--ix,iy);
+        }
+        leftOldState= curState;
+    }
+
+    //when the center switch button is pressed
+    {
+        int curState= SWL_Pushed(SWL_CTR);
+       if((curState != ctrOldState) && curState){
+        buff2[ix]=1;
+       }
+
+       ctrOldState= curState;
+    }
+
     PIT_Sleep(20000000ul, PITTF_Ch1, 10);
+
   }
 }
 
