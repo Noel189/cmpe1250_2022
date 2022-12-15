@@ -39,7 +39,7 @@ unsigned char curson = 1;
 unsigned char blinkon = 1;
 unsigned int bitPos = 0;
 char buff2[21] = {0};
-char buff3[21]={0};
+char buff3[21] = {0};
 unsigned char ix = 2;
 unsigned char iy = 3;
 // char buff3[21] = {0};
@@ -97,8 +97,8 @@ void main(void)
         // display decimal DEC:
         {
             // GenerateDecimal(buff3);
-          
-            (void)sprintf(buff3, "DEC: %05d",0);
+
+            (void)sprintf(buff3, "DEC: %05d", 0);
             lcd_StringXY(0, 1, buff3);
         }
         // display decimal HEX:
@@ -106,16 +106,7 @@ void main(void)
             // GenerateDecimal(buff3);
             (void)sprintf(buff3, "HEX: %04X", 0);
             lcd_StringXY(0, 2, buff3);
-             lcd_AddrXY(ix, iy);
-        }
-
-        {
-
-            // centered at the bottom of the display show a 16bit binary number
-
-            //  lcd_Addrxy(2,3);
-
-           
+            lcd_AddrXY(ix, iy);
         }
 
         // when the right switch button is pressed
@@ -146,11 +137,8 @@ void main(void)
             int curState = SWL_Pushed(SWL_CTR);
             if ((curState != ctrOldState) && curState)
             {
-                buff2[ix-2] = '1';
+                buff2[ix - 2] = '1';
                 lcd_StringXY(2, 3, buff2);
-
-              
-               
             }
 
             ctrOldState = curState;
