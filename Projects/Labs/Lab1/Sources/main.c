@@ -15,9 +15,9 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 // other system includes or your includes go here
-//#include "pll.h"
-//#include <stdlib.h>
-//#include <stdio.h>
+// #include "pll.h"
+// #include <stdlib.h>
+// #include <stdio.h>
 #include "Segs.h"
 #include "sw_led.h"
 #include "PLL.h"
@@ -30,12 +30,11 @@
 // Global Variables
 /////////////////////////////////////////////////////////////////////////////
 unsigned int upCounter = 0;
-unsigned int count = 0;
-unsigned char addr = 4;
-unsigned int flag1 = 1;
-unsigned int flag2 = 0;
-unsigned int flag3 = 0;
-unsigned int flag4 = 0;
+unsigned int eventCount = 0;
+unsigned char addr = 3;
+unsigned int flagHex = 0;
+unsigned int flagDec = 1;
+
 /////////////////////////////////////////////////////////////////////////////
 // Constants
 /////////////////////////////////////////////////////////////////////////////
@@ -58,6 +57,7 @@ void main(void)
   SWL_Init();
   Segs_Init();
   Segs_Clear();
+  (void)PIT_Init(20000000ul, PITTF_Ch0, 100000);
 
   /////////////////////////////////////////////////////////////////////////////
   // main program loop
@@ -65,86 +65,72 @@ void main(void)
   for (;;)
   {
 
-    PIT_Sleep(20000000ul, PITTF_Ch1, 100);
-    count++;
-    if (flag1 && count == 10)
+    if (PITTF_PTF0)
     {
-      Segs_16D(upCounter++, Segs_LineTop);
-      if (upCounter == 10000)
+      //    PIT_Sleep(20000000ul,PITTF_Ch1,100);
+      // acknowledge the flag
+      PITTF = PITTF_PTF0_MASK; // clears the flag
+      eventCount++;
+      if (eventCount == 10)
       {
-        upCounter = 0;
+        eventCount = 0;
+        Segs_Clear_Lower();
+
+        if (upCounter < 9999 && flagDec)
+        {
+          // count on the upper seg
+          Segs_16D(upCounter++, Segs_LineTop);
+        }
+        if (flagHex)
+        {
+          Segs_16H(upCounter++, Segs_LineTop);
+        }
+        if (upCounter > 9999)
+        {
+          upCounter = 0;
+        }
       }
-      count = 0;
+    }
+
+    // if center switch is pushed reset the count back to 0
+    if (SWL_Pushed(SWL_CTR))
+    {
+      upCounter = 0;
     }
 
     if (SWL_Pushed(SWL_UP))
     {
-      flag2 = 1; // responds to the UP button press
-      flag3 = 0;
-      flag1 = 0;
-      flag4 = 0;
+      flagHex = 1;
+      flagDec = 0;
+      // yellow led will be on
+      SWL_ON(SWL_YELLOW);
+      SWL_OFF(SWL_GREEN); // turn of led green
     }
+
     if (SWL_Pushed(SWL_DOWN))
     {
-      flag2 = 0;
-      flag3 = 1; // responds to the DOWN button press
-      flag1 = 0;
-      flag4 = 0;
-    }
-    if (SWL_Pushed(SWL_CTR))
-    {
-      flag2 = 0;
-      flag3 = 0;
-      flag4 = 1; // responds to the CTR button  press
-      flag1 = 0;
-    }
-
-    // pressing the UP button will swith the top display to HEX,and only the YELLOW LED will be on
-    if (flag2 && count == 10)
-    {
-      SWL_OFF(SWL_GREEN);
-      Segs_16H(upCounter++, Segs_LineTop);
-      SWL_ON(SWL_YELLOW);
-      if (upCounter == 0x2710)
-      {
-        upCounter = 0;
-      }
-      count = 0;
-    }
-
-    // pressing the DOWN button will switch the top display to DEC, and only the GREEN LED will be on
-    if (flag3 && count == 10)
-    {
-      SWL_OFF(SWL_YELLOW);
-      Segs_16D(upCounter++, Segs_LineTop);
-      SWL_ON(SWL_GREEN);
-      if (upCounter == 10000)
-      {
-        upCounter = 0;
-      }
-      count = 0;
-    }
-
-    // pressing the CTR switch,resets the count back to zero
-    if (flag4 && count == 10)
-    {
-      Segs_Clear();
-      SWL_OFF(SWL_YELLOW);
-      SWL_OFF(SWL_GREEN);
-      Segs_16D(upCounter, Segs_LineTop);
-      if (upCounter == 0)
-      {
-        upCounter = 10000;
-      }
-      upCounter--;
-      count = 0;
+      flagHex = 0;
+      flagDec = 1;
+      SWL_ON(SWL_GREEN);   // turn on green led
+      SWL_OFF(SWL_YELLOW); // turn off yellow led
     }
 
     // bottom display, turn on each successive decimal points each 200ms
-    if (count % 2 == 0)
+    if (eventCount == 2)
     {
-      if (addr <= 7)
-        Segs_Custom(addr++, 0b00000000);
+      Segs_Custom(4, 0b00000000);
+    }
+    if (eventCount == 4)
+    {
+      Segs_Custom(5, 0b00000000);
+    }
+    if (eventCount == 6)
+    {
+      Segs_Custom(6, 0b00000000);
+    }
+    if (eventCount == 8)
+    {
+      Segs_Custom(7, 0b00000000);
     }
   }
 }
