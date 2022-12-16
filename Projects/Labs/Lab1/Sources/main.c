@@ -128,6 +128,7 @@ void main(void)
     // pressing the CTR switch,resets the count back to zero
     if (flag4 && count == 10)
     {
+      Segs_Clear();
       SWL_OFF(SWL_YELLOW);
       SWL_OFF(SWL_GREEN);
       Segs_16D(upCounter, Segs_LineTop);
